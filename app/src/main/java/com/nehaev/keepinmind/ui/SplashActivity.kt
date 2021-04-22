@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.PersistableBundle
+import android.view.Window
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -27,13 +28,14 @@ import com.nehaev.keepinmind.R
 class SplashActivity : AppCompatActivity() {
 
     private companion object {
-        const val SPLASH_DURATION = 3000
+        const val SPLASH_DURATION = 2000
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_splash)
 
         //backgroundAnimation()
@@ -41,17 +43,44 @@ class SplashActivity : AppCompatActivity() {
         val mFlSplash = findViewById<FrameLayout>(R.id.flSplash)
         val mImageView = findViewById<ImageView>(R.id.ivLogoSplash)
 
-        val objectAnimator = ObjectAnimator.ofObject(mFlSplash, "backgroundColor",
+//        val objectAnimator = ObjectAnimator.ofObject(mFlSplash, "backgroundColor",
+//        ArgbEvaluator(),
+//        ContextCompat.getColor(this, R.color.splash_color_from),
+//        ContextCompat.getColor(this, R.color.splash_color_to))
+//
+//        objectAnimator.apply {
+//            repeatCount = 1
+//            repeatMode = ValueAnimator.REVERSE
+//            duration = SPLASH_DURATION.toLong()
+//        }.start()
+
+        backgroundAnimation()
+
+        val intent = Intent(this, MainActivity::class.java)
+
+        Handler(Looper.getMainLooper()).postDelayed( {
+            startActivity( intent)
+            finish()
+        }, SPLASH_DURATION.toLong())
+    }
+
+    private fun backgroundAnimation() {
+
+        // Background color animation
+
+        ObjectAnimator.ofObject(findViewById<FrameLayout>(R.id.flSplash),
+        "backgroundColor",
         ArgbEvaluator(),
         ContextCompat.getColor(this, R.color.splash_color_from),
-        ContextCompat.getColor(this, R.color.splash_color_to))
-
-        objectAnimator.apply {
+        ContextCompat.getColor(this, R.color.splash_color_to)).apply {
             repeatCount = 1
             repeatMode = ValueAnimator.REVERSE
             duration = SPLASH_DURATION.toLong()
         }.start()
 
+        // Logo alpha animation
+
+        val mImageView = findViewById<ImageView>(R.id.ivLogoSplash)
         val animationX = ObjectAnimator.ofFloat(mImageView, "alpha", 0F)
         val animationY = ObjectAnimator.ofFloat(mImageView, "alpha", 1F)
         val set = AnimatorSet()
@@ -60,34 +89,5 @@ class SplashActivity : AppCompatActivity() {
         set.duration = SPLASH_DURATION.toLong()
         set.interpolator = DecelerateInterpolator()
         set.start()
-
-        //AnimationUtils.loadAnimation(this, R.anim.splash_img_anim).start()
-
-        val intent = Intent(this, MainActivity::class.java)
-
-        Handler(Looper.getMainLooper()).postDelayed( {
-            startActivity( intent)
-        }, SPLASH_DURATION.toLong())
-    }
-
-    private inline fun backgroundAnimation() {
-        ObjectAnimator.ofObject(
-            R.id.clActivitySplash, "background",
-            ArgbEvaluator(),
-            ContextCompat.getColor(this, R.color.splash_color_from),
-            ContextCompat.getColor(this, R.color.splash_color_to)
-        ).apply {
-            repeatCount = 1
-            repeatMode = ValueAnimator.REVERSE
-            duration = SPLASH_DURATION.toLong()
-            start()
-        }
-
-//        objectAnimator.apply {
-//            repeatCount = 1
-//            repeatMode = ValueAnimator.REVERSE
-//            setDuration(SPLASH_DURATION.toLong())
-//            start()
-//        }
     }
 }
