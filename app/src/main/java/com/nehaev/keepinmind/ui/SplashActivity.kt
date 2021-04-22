@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.postDelayed
 import com.nehaev.keepinmind.MainActivity
 import com.nehaev.keepinmind.R
+import com.nehaev.keepinmind.ui.login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -38,25 +39,9 @@ class SplashActivity : AppCompatActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_splash)
 
-        //backgroundAnimation()
-
-        val mFlSplash = findViewById<FrameLayout>(R.id.flSplash)
-        val mImageView = findViewById<ImageView>(R.id.ivLogoSplash)
-
-//        val objectAnimator = ObjectAnimator.ofObject(mFlSplash, "backgroundColor",
-//        ArgbEvaluator(),
-//        ContextCompat.getColor(this, R.color.splash_color_from),
-//        ContextCompat.getColor(this, R.color.splash_color_to))
-//
-//        objectAnimator.apply {
-//            repeatCount = 1
-//            repeatMode = ValueAnimator.REVERSE
-//            duration = SPLASH_DURATION.toLong()
-//        }.start()
-
         backgroundAnimation()
 
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
 
         Handler(Looper.getMainLooper()).postDelayed( {
             startActivity( intent)

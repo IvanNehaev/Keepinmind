@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Keep in mind</string>
+    <string name="email_address_string">Email address</string>
+    <string name="password_string">Password</string>
+    <string name="forgot_password_string">Forgot your password?</string>
+    <string name="login_button_string">Log in</string>
+    <string name="dont_have_acc_string">Don\'t have an account?</string>
+    <string name="big_app_name">KEEP IN MIND</string>
 </resources>
