@@ -25,6 +25,7 @@ import androidx.core.os.postDelayed
 import com.nehaev.keepinmind.MainActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.ui.login.LoginActivity
+import com.nehaev.keepinmind.ui.tests.TestsActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -41,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
 
         backgroundAnimation()
 
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, TestsActivity::class.java)
 
         Handler(Looper.getMainLooper()).postDelayed( {
             startActivity( intent)
