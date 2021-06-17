@@ -14,16 +14,16 @@ import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.ui.tests.adapter.TestsRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_tests.*
 
-class TestsFragment : Fragment() {
+class TestsFragment : Fragment(R.layout.fragment_tests) {
 
     var testsNames: MutableList<String> = mutableListOf("Kotlin", "Java", "C++", "Swift")
     var displayList: MutableList<String> = mutableListOf()
     var nameCounter = 4
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_tests, container, false)
-    }
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+//        return inflater.inflate(R.layout.fragment_tests, container, false)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

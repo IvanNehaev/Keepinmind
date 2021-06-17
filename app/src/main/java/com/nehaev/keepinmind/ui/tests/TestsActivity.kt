@@ -14,7 +14,10 @@ class TestsActivity : AppCompatActivity() {
     }
 
     private fun fragmentInit() {
-        val fm = supportFragmentManager.beginTransaction()
-        fm.add(R.id.tests_fragmentContainer, TestsFragment()).commit()
+
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.tests_fragmentContainer, TestsFragment())
+            commit()
+        }
     }
 }

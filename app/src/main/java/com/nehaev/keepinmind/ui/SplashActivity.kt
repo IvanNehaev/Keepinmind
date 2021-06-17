@@ -5,26 +5,17 @@ import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.PersistableBundle
 import android.view.Window
 import android.view.WindowManager
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
-import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.os.postDelayed
-import com.nehaev.keepinmind.MainActivity
 import com.nehaev.keepinmind.R
-import com.nehaev.keepinmind.ui.login.LoginActivity
 import com.nehaev.keepinmind.ui.tests.TestsActivity
 
 class SplashActivity : AppCompatActivity() {

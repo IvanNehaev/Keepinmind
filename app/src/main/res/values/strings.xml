@@ -6,4 +6,9 @@
     <string name="login_button_string">Log in</string>
     <string name="dont_have_acc_string">Don\'t have an account?</string>
     <string name="big_app_name">KEEP IN MIND</string>
+    <string name="error_email_invalid">invalid email</string>
+    <string name="error_password_invalid">invalid password</string>
+    <string name="bnm_titleTests">Tests</string>
+    <string name="bnm_titleThemes">Themes</string>
+    <string name="bnm_titleSettings">Settings</string>
 </resources>

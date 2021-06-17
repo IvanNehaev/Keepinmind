@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/testsFragment"
+        android:title="@string/bnm_titleTests"
+        android:icon="@drawable/ic_tests" />
+
+    <item android:id="@+id/themesFragment"
+        android:title="@string/bnm_titleThemes"
+        android:icon="@drawable/ic_themes" />
+
+    <item android:id="@+id/settingsFragment"
+        android:title="@string/bnm_titleSettings"
+        android:icon="@drawable/ic_settings" />
+
+</menu>

@@ -11,17 +11,17 @@
         android:theme="@style/Theme.KeepInMind">
         <activity android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
+
+        </activity>
+        <activity android:name=".ui.login.LoginActivity"
+            android:theme="@style/Login_theme">
+        </activity>
+        <activity android:name=".MindActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.login.LoginActivity"
-            android:theme="@style/Login_theme">
-
-        </activity>
-        <activity android:name=".MainActivity">
-
         </activity>
         <activity android:name=".ui.tests.TestsActivity"
             android:windowSoftInputMode="stateHidden">
