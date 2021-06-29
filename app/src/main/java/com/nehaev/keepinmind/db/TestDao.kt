@@ -11,7 +11,10 @@ interface TestDao {
     suspend fun upsert(test: Test): Long
 
     @Query("SELECT * FROM tests")
-    fun getAllTests(): LiveData<List<Test>>
+    suspend fun getAllTests(): List<Test>
+
+    @Query("SELECT * FROM tests")
+    fun getAllTestsWithLiveData(): LiveData<List<Test>>
 
     @Delete
     suspend fun deleteTest(test: Test)
