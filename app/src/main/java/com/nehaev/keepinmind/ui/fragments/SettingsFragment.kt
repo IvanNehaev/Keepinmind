@@ -1,4 +1,4 @@
-package com.nehaev.keepinmind.ui.themes
+package com.nehaev.keepinmind.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.ui.MindViewModel
 
-class ThemesFragment : Fragment(R.layout.fragment_themes) {
+class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     lateinit var viewModel: MindViewModel
 

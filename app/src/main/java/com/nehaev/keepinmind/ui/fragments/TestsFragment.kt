@@ -1,4 +1,4 @@
-package com.nehaev.keepinmind.ui.tests
+package com.nehaev.keepinmind.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +11,7 @@ import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Test
 import com.nehaev.keepinmind.ui.MindViewModel
-import com.nehaev.keepinmind.ui.tests.adapter.TestsAdapter
+import com.nehaev.keepinmind.adapters.TestsAdapter
 import com.nehaev.keepinmind.util.Resource
 import kotlinx.android.synthetic.main.fragment_tests.*
 
@@ -36,6 +36,10 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
                     hideProgressBar()
                     response?.let {testsResponse ->
                         testsAdapter.differ.submitList(testsResponse.data)
+
+                        viewModel.testsDbLiveData.observe(viewLifecycleOwner, Observer {
+                            testsAdapter.differ.submitList(it)
+                        })
                     }
                 }
                 is Resource.Error -> {

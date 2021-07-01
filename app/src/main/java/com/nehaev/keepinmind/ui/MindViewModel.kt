@@ -1,5 +1,6 @@
 package com.nehaev.keepinmind.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ class MindViewModel(
 ) : ViewModel() {
 
     val testsLiveData: MutableLiveData<Resource<List<Test>>> = MutableLiveData()
+    lateinit var testsDbLiveData: LiveData<List<Test>>
 
     init {
         getTests()
@@ -22,6 +24,8 @@ class MindViewModel(
         testsLiveData.postValue(Resource.Loading())
         val response = mindRepository.getAllTests()
         testsLiveData.postValue(handleTestsResponse(response))
+
+        testsDbLiveData = mindRepository.getAllTestWithLiveData()
     }
 
     fun upsertTest(test: Test) {

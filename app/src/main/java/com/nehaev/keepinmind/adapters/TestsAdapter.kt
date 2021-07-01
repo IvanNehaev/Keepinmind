@@ -1,4 +1,4 @@
-package com.nehaev.keepinmind.ui.tests.adapter
+package com.nehaev.keepinmind.adapters
 
 import android.view.LayoutInflater
 import android.view.View
