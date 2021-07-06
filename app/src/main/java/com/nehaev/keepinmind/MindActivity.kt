@@ -7,8 +7,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.nehaev.keepinmind.db.MindDatabase
 import com.nehaev.keepinmind.repository.MindRepository
-import com.nehaev.keepinmind.ui.MindViewModel
-import com.nehaev.keepinmind.ui.MindViewModelProviderFactory
+import com.nehaev.keepinmind.ui.viewmodels.MindViewModel
+import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_mind.*
 
 class MindActivity : AppCompatActivity() {

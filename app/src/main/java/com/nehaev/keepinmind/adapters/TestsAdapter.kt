@@ -43,7 +43,7 @@ class TestsAdapter : RecyclerView.Adapter<TestsAdapter.TestsViewHolder>() {
     override fun onBindViewHolder(holder: TestsViewHolder, position: Int) {
         val test = differ.currentList[position]
         holder.itemView.apply {
-            tvTestName.text = test.name
+            tvThemeName.text = test.name
             tvQuestionCount.text = test.questionCnt.toString()
             tvTestRate.text = "${test.rate.toString()}%"
             setOnClickListener {

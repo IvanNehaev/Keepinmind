@@ -8,6 +8,10 @@ import com.nehaev.keepinmind.models.Test
 class MindRepository(
         val db: MindDatabase
 )  {
+
+    val themes = ThemeRepository(db.getThemeDao())
+    val categories = CategoryRepository(db.getCategoryDao())
+
     suspend fun getAllTests(): List<Test> =
         db.getTestDao().getAllTests()
 

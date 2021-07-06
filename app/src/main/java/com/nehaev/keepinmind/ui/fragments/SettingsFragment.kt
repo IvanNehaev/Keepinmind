@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
-import com.nehaev.keepinmind.ui.MindViewModel
+import com.nehaev.keepinmind.ui.viewmodels.MindViewModel
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 

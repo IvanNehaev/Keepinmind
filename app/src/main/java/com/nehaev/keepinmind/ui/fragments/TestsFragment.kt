@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Test
-import com.nehaev.keepinmind.ui.MindViewModel
+import com.nehaev.keepinmind.ui.viewmodels.MindViewModel
 import com.nehaev.keepinmind.adapters.TestsAdapter
 import com.nehaev.keepinmind.util.Resource
 import kotlinx.android.synthetic.main.fragment_tests.*

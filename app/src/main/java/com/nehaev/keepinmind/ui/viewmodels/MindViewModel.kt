@@ -1,4 +1,4 @@
-package com.nehaev.keepinmind.ui
+package com.nehaev.keepinmind.ui.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,9 +16,15 @@ class MindViewModel(
     val testsLiveData: MutableLiveData<Resource<List<Test>>> = MutableLiveData()
     lateinit var testsDbLiveData: LiveData<List<Test>>
 
+    val themeViewModel: ThemeViewModel by lazy {
+        ThemeViewModel(mindRepository, viewModelScope)
+    }
+
     init {
         getTests()
     }
+
+    //fun getThemeViewModel() = ThemeViewModel(mindRepository, viewModelScope)
 
     fun getTests() = viewModelScope.launch {
         testsLiveData.postValue(Resource.Loading())

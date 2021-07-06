@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/mind_nav_graph"
-    app:startDestination="@id/testsFragment">
+    app:startDestination="@id/themesFragment">
 
     <fragment
         android:id="@+id/testsFragment"
@@ -10,9 +10,32 @@
     <fragment
         android:id="@+id/themesFragment"
         android:name="com.nehaev.keepinmind.ui.fragments.ThemesFragment"
-        android:label="ThemesFragment" />
+        android:label="ThemesFragment" >
+        <action
+            android:id="@+id/action_themesFragment_to_questionsFragment"
+            app:destination="@id/questionsFragment" />
+        <action
+            android:id="@+id/action_themesFragment_to_themeCreateFragment"
+            app:destination="@id/themeCreateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.nehaev.keepinmind.ui.fragments.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/questionCreateFragment"
+        android:name="com.nehaev.keepinmind.ui.fragments.QuestionCreateFragment"
+        android:label="QuestionCreateFragment" />
+    <fragment
+        android:id="@+id/questionsFragment"
+        android:name="com.nehaev.keepinmind.ui.fragments.QuestionsFragment"
+        android:label="QuestionsFragment" >
+        <action
+            android:id="@+id/action_questionsFragment_to_questionCreateFragment"
+            app:destination="@id/questionCreateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/themeCreateFragment"
+        android:name="com.nehaev.keepinmind.ui.fragments.ThemeCreateFragment"
+        android:label="ThemeCreateFragment" />
 </navigation>

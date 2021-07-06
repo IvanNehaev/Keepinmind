@@ -1,4 +1,4 @@
-package com.nehaev.keepinmind.ui
+package com.nehaev.keepinmind.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
