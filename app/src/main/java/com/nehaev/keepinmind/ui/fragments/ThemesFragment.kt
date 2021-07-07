@@ -18,9 +18,11 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
 
     lateinit var viewModel: ThemeViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel = (activity as MindActivity).viewModel.themeViewModel
+        viewModel.attach()
 
         viewModel.liveData.observe(viewLifecycleOwner, Observer {response ->
             when(response) {
@@ -36,4 +38,13 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
             }
         })
     }
+
+
+    override fun onStop() {
+        super.onStop()
+
+        viewModel.detach()
+    }
+
+
 }

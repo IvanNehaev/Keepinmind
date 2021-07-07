@@ -10,6 +10,7 @@ data class Theme(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val categoryId: Int,
+    val categoryName: String,
     val name: String,
     val questionCnt: Int
 )

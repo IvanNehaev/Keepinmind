@@ -16,9 +16,7 @@ class MindViewModel(
     val testsLiveData: MutableLiveData<Resource<List<Test>>> = MutableLiveData()
     lateinit var testsDbLiveData: LiveData<List<Test>>
 
-    val themeViewModel: ThemeViewModel by lazy {
-        ThemeViewModel(mindRepository, viewModelScope)
-    }
+    val themeViewModel = ThemeViewModel(mindRepository, viewModelScope)
 
     init {
         getTests()
