@@ -11,7 +11,10 @@ interface ThemeDao {
     suspend fun upsert(theme: Theme): Long
 
     @Query("SELECT * FROM themes")
-    fun getAllThemes(): LiveData<List<Theme>>
+    suspend fun getAllThemes(): List<Theme>
+
+    @Query("SELECT * FROM themes")
+    fun getAllThemesLiveData(): LiveData<List<Theme>>
 
     @Delete
     suspend fun deleteTheme(theme: Theme)

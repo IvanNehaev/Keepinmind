@@ -41,6 +41,23 @@
                 app:srcCompat="@android:drawable/ic_menu_search" />
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/pbThemesLoading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvThemeErrorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Error text"
+            android:textAlignment="center"
+            android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvThemes"
             android:layout_width="match_parent"
@@ -48,7 +65,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:visibility="visible" />
 
     </LinearLayout>
 

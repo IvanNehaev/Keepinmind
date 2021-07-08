@@ -8,6 +8,8 @@ import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.util.ThemeListResource
 import com.nehaev.keepinmind.util.ThemeResource
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class ThemeViewModel(
@@ -16,23 +18,16 @@ class ThemeViewModel(
 ) {
 
     val liveData: MutableLiveData<ThemeResource> = MutableLiveData()
-    private var themesLiveData: LiveData<List<Theme>>? = null
-
-    private val listItems = mutableListOf<ThemeListResource>()
-
-    private val observer = Observer<List<Theme>> {
-        onNewData(it)
-    }
 
     fun attach() {
         getThemes()
     }
 
     fun detach() {
-        themesLiveData?.removeObserver(observer)
     }
 
-    private fun onNewData(themes: List<Theme>) {
+    private fun prepareItemList(themes: List<Theme>): List<ThemeListResource> {
+        val listItems = mutableListOf<ThemeListResource>()
         val categories = mutableSetOf<String>()
         // collect all unic categories names
         for(theme in themes)
@@ -50,25 +45,50 @@ class ThemeViewModel(
                 listItems.add(ThemeListResource.ThemeItem(theme))
             }
         }
+        return listItems
     }
 
-    fun getThemes() = viewModelScope.launch {
+    private fun getThemes() = viewModelScope.launch {
+        // set loading state on view
         liveData.postValue(ThemeResource.Loading())
-
-        val response = mindRepository.themes.getAllThemes()
-        response?.observeForever(observer)
-        themesLiveData = response
-
-
-        //val response = mindRepository.themes.getAllThemes()
-        //liveData.postValue(handleThemesResponse(response))
+        // get all themes from db
+        var response = listOf<Theme>()
+        async { response = mindRepository.themes.getAllThemes() }.await()
+        // send response to view
+        liveData.postValue(handleThemesResponse(response))
     }
 
-    private fun handleThemesResponse(response: LiveData<List<Theme>>): ThemeResource {
-        response?.let {resultResponse ->
-            return ThemeResource.Success(resultResponse)
+    private fun handleThemesResponse(response: List<Theme>): ThemeResource {
+        response?.let {
+            return ThemeResource.Success(prepareItemList(response))
         }
         return ThemeResource.Error("handle themes error")
     }
 
+    fun upsertTheme(theme: Theme) {
+        viewModelScope.launch {
+            mindRepository.themes.upsertTheme(theme)
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

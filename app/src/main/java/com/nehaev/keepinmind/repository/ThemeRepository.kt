@@ -8,5 +8,9 @@ class ThemeRepository(
         private val themeDao: ThemeDao
 ) {
 
-    fun getAllThemes(): LiveData<List<Theme>> = themeDao.getAllThemes()
+    suspend fun getAllThemes(): List<Theme> = themeDao.getAllThemes()
+
+    suspend fun upsertTheme(theme: Theme) {
+        themeDao.upsert(theme)
+    }
 }
