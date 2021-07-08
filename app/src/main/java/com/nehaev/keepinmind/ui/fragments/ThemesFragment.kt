@@ -1,20 +1,16 @@
 package com.nehaev.keepinmind.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.adapters.ThemesAdapter
 import com.nehaev.keepinmind.models.Theme
-import com.nehaev.keepinmind.ui.viewmodels.MindViewModel
 import com.nehaev.keepinmind.ui.viewmodels.ThemeViewModel
 import com.nehaev.keepinmind.util.ThemeResource
 import kotlinx.android.synthetic.main.fragment_themes.*
@@ -23,10 +19,8 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
 
     private val TAG = "ThemesFragment"
 
-    lateinit var viewModel: ThemeViewModel
-    lateinit var themesAdapter: ThemesAdapter
-
-    private var nameCounter = 0
+    private lateinit var viewModel: ThemeViewModel
+    private lateinit var themesAdapter: ThemesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,8 +90,15 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
     }
 
     private fun setFabAction() {
+        //createTestThemesInDb()
         fabAddTheme.setOnClickListener {
+            findNavController().navigate(R.id.action_themesFragment_to_themeCreateFragment)
+        }
+    }
 
+    private fun createTestThemesInDb() {
+        var nameCounter = 0
+        fabAddTheme.setOnClickListener {
             for ( i in 0..3) {
                 nameCounter++
                 viewModel.upsertTheme(Theme(

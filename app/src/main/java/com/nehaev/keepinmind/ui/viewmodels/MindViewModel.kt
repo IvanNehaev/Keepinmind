@@ -17,6 +17,7 @@ class MindViewModel(
     lateinit var testsDbLiveData: LiveData<List<Test>>
 
     val themeViewModel = ThemeViewModel(mindRepository, viewModelScope)
+    val themeCreateViewModel = ThemeCreateViewModel(mindRepository, viewModelScope)
 
     init {
         getTests()
