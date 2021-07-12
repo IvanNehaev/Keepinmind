@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
+import com.nehaev.keepinmind.adapters.CategoriesAdapter
 import com.nehaev.keepinmind.ui.viewmodels.ThemeCreateViewModel
 import com.nehaev.keepinmind.ui.viewmodels.ThemeViewModel
 import com.nehaev.keepinmind.util.Resource
@@ -38,7 +39,7 @@ class ThemeCreateFragment : Fragment(R.layout.fragment_create_theme) {
         viewModel.liveData.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
                 is Resource.Success -> {
-                    setSpinnerData(response.data ?: listOf<String>())
+                    //setSpinnerData(response.data ?: listOf<String>())
                 }
                 is Resource.Loading -> {
 
@@ -51,11 +52,11 @@ class ThemeCreateFragment : Fragment(R.layout.fragment_create_theme) {
     }
 
     private fun setSpinnerData(categories: List<String>) {
-        spinnerCategories.adapter = ArrayAdapter(
-            activity as MindActivity,
-            R.layout.support_simple_spinner_dropdown_item,
-            categories
-        )
+//        spinnerCategories.adapter = ArrayAdapter(
+//            activity as MindActivity,
+//            R.layout.support_simple_spinner_dropdown_item,
+//            categories
+//        )
     }
 
     override fun onStop() {

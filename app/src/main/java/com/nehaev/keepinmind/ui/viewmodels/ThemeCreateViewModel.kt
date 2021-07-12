@@ -1,6 +1,7 @@
 package com.nehaev.keepinmind.ui.viewmodels
 
 import androidx.lifecycle.MutableLiveData
+import com.nehaev.keepinmind.models.Category
 import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.util.Resource
@@ -14,7 +15,7 @@ class ThemeCreateViewModel(
     private val viewModelScope: CoroutineScope
 ) {
 
-    val liveData: MutableLiveData<Resource<List<String>>> = MutableLiveData()
+    val liveData: MutableLiveData<Resource<List<Category>>> = MutableLiveData()
 
     fun attach() {
         getThemes()
@@ -33,15 +34,22 @@ class ThemeCreateViewModel(
         liveData.postValue(handleThemesResponse(response))
     }
 
-    private fun handleThemesResponse(response: List<Theme>) = Resource.Success(getCategoryList(response))
+    private fun handleThemesResponse(response: List<Theme>): Resource<List<Category>> {
+
+        val result = getCategoryList(response)
+        if (result.isEmpty())
+            return Resource.Error(message = "Empty list")
+
+        return Resource.Success(data = result)
+    }
 
 
-    private fun getCategoryList(themes: List<Theme>): List<String> {
+    private fun getCategoryList(themes: List<Theme>): List<Category> {
         // create set for categories store
-        val categories = mutableSetOf<String>()
+        val categories = mutableSetOf<Category>()
         // add all categories names in set
         for(theme in themes)
-            categories.add(theme.categoryName)
+            categories.add(Category(theme.categoryId, theme.categoryName))
         // transform set to list and return list of categories
         return  categories.toList()
     }
