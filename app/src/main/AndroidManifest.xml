@@ -17,7 +17,7 @@
             android:theme="@style/Login_theme">
         </activity>
         <activity android:name=".MindActivity"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

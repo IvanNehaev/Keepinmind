@@ -2,27 +2,23 @@ package com.nehaev.keepinmind.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
-import com.nehaev.keepinmind.adapters.CategoriesAdapter
-import com.nehaev.keepinmind.ui.viewmodels.ThemeCreateViewModel
-import com.nehaev.keepinmind.ui.viewmodels.ThemeViewModel
+import com.nehaev.keepinmind.ui.viewmodels.CategoryChoiceViewModel
 import com.nehaev.keepinmind.util.Resource
-import kotlinx.android.synthetic.main.fragment_create_theme.*
 
-class ThemeCreateFragment : Fragment(R.layout.fragment_create_theme) {
+class ThemeCreateFragment : Fragment(R.layout.fragmentdialog_choice_categoty) {
 
     private val TAG = "ThemeCreateFragment"
 
-    private lateinit var viewModel: ThemeCreateViewModel
+    private lateinit var viewModel: CategoryChoiceViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = (activity as MindActivity).viewModel.themeCreateViewModel
+        viewModel = (activity as MindActivity).viewModel.categoryChoiceViewModel
         viewModel.attach()
 
         setObserver()
@@ -30,9 +26,7 @@ class ThemeCreateFragment : Fragment(R.layout.fragment_create_theme) {
     }
 
     private fun setupButtonSave() {
-        btnSaveTheme.setOnClickListener {
 
-        }
     }
 
     private fun setObserver() {

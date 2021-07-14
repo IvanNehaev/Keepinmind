@@ -37,8 +37,15 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
         val category = differ.currentList[position]
         holder.itemView.apply {
             tvCategoryName.text = category.name
+            setOnClickListener {
+                onItemClickListener?.let {
+                    it(category)
+                }
+            }
         }
     }
+
+    var onItemClickListener: ((Category) -> Unit)? = null
 
     override fun getItemCount() = differ.currentList.size
 }

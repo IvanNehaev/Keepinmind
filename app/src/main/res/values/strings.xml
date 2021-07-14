@@ -14,7 +14,11 @@
     <string name="choice_category_title">Choice category</string>
     <string name="empty_categories_list">The categories list is empty</string>
     <string name="enter_theme_name_text">Enter theme name</string>
+    <string name="enter_category_name_text">Enter category name</string>
     <string name="theme_name_text">Theme name</string>
+    <string name="category_name_text">Category name</string>
     <string name="save_text">Save</string>
     <string name="new_category_text">New category</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="ok_text">Ok</string>
 </resources>

@@ -28,6 +28,10 @@
     <style name="FullScreenDialogTheme" parent="Theme.AppCompat.DayNight.DialogWhenLarge">
         <item name="android:backgroundDimEnabled">true</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateAlwaysHidden</item>
         <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
     </style>
 </resources>

@@ -11,7 +11,7 @@ interface CategoryDao {
     suspend fun upsert(category: Category): Long
 
     @Query("SELECT * FROM categories")
-    fun getAllCategories(): LiveData<List<Category>>
+    suspend fun getAllCategories(): List<Category>
 
     @Delete
     suspend fun deleteCategory(category: Category)

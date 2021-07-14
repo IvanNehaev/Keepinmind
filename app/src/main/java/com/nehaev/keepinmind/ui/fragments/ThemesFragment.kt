@@ -2,13 +2,8 @@ package com.nehaev.keepinmind.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nehaev.keepinmind.MindActivity
@@ -97,7 +92,7 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
 
         // show fragment dialog
         fabAddTheme.setOnClickListener {
-            val dialog = ThemeCreateDialog()
+            val dialog = CategoryChoiceDialog()
             dialog.show((activity as MindActivity).supportFragmentManager, "")
         }
 

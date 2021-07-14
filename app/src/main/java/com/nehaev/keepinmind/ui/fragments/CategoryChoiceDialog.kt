@@ -1,5 +1,6 @@
 package com.nehaev.keepinmind.ui.fragments
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
@@ -8,21 +9,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.adapters.CategoriesAdapter
-import com.nehaev.keepinmind.ui.viewmodels.ThemeCreateViewModel
+import com.nehaev.keepinmind.models.Category
+import com.nehaev.keepinmind.ui.viewmodels.CategoryChoiceViewModel
 import com.nehaev.keepinmind.util.Resource
-import kotlinx.android.synthetic.main.fragment_create_theme.*
+import kotlinx.android.synthetic.main.fragmentdialog_choice_categoty.*
+import java.util.*
 
-class ThemeCreateDialog : DialogFragment() {
+class CategoryChoiceDialog : DialogFragment() {
 
-    private val TAG = "ThemeCreateDialog"
+    private val TAG = "CategoryChoiceDialog"
 
-    private lateinit var viewModel: ThemeCreateViewModel
+    private lateinit var viewModel: CategoryChoiceViewModel
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // set dialog style
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogTheme)
-
     }
 
     override fun onCreateView(
@@ -31,17 +34,32 @@ class ThemeCreateDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setupDialog()
-        return inflater.inflate(R.layout.fragment_create_theme, null)
+        return inflater.inflate(R.layout.fragmentdialog_choice_categoty, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = (activity as MindActivity).viewModel.themeCreateViewModel
+        viewModel = (activity as MindActivity).viewModel.categoryChoiceViewModel
         viewModel.attach()
 
         setupRecyclerView()
         setObserver()
+        setOnButtonCancelClick()
+    }
+
+    private fun setOnButtonCancelClick() {
+        btnCancel.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
     }
 
     private fun setupDialog() {
@@ -51,7 +69,7 @@ class ThemeCreateDialog : DialogFragment() {
         // set width to MATCH PARENT
         val width = ViewGroup.LayoutParams.MATCH_PARENT
         val height = ViewGroup.LayoutParams.WRAP_CONTENT
-        window?.setLayout(width, height)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
     }
 
     override fun onStop() {
@@ -65,14 +83,28 @@ class ThemeCreateDialog : DialogFragment() {
             adapter = categoriesAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+        categoriesAdapter.onItemClickListener = ::onCategoryClick
+    }
+
+    private fun onCategoryClick(category: Category) {
+        if (category.id == 0) {
+            onNewCategoryClick()
+            //dismiss()
+        } else {
+            dismiss()
+        }
+    }
+
+    private fun onNewCategoryClick() {
+        val dialog = CategoryEnterNameDialog()
+        dialog.show((activity as MindActivity).supportFragmentManager, "")
     }
 
     private fun setObserver() {
         viewModel.liveData.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
                 is Resource.Success -> {
-                    viewSuccessState()
-                    categoriesAdapter.differ.submitList(response.data)
+                    onSuccessResponse(response.data)
                 }
                 is Resource.Loading -> {
 
@@ -84,13 +116,24 @@ class ThemeCreateDialog : DialogFragment() {
         })
     }
 
+    private fun onSuccessResponse(response: List<Category>?) {
+        viewSuccessState()
+        response?.let { categories ->
+            categories.toMutableList()[0] = Category(
+                id = 0,
+                name = resources.getString(R.string.new_category_text)
+            )
+            categoriesAdapter.differ.submitList(categories)
+        }
+    }
+
     private fun viewSuccessState() {
-        tvEmptyCategoriesList.visibility = View.GONE
+
         rvChoiceCategory.visibility = View.VISIBLE
     }
 
     private fun viewErrorState() {
-        tvEmptyCategoriesList.visibility = View.VISIBLE
+
         rvChoiceCategory.visibility = View.INVISIBLE
     }
 }
