@@ -1,6 +1,8 @@
 package com.nehaev.keepinmind.ui.viewmodels
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Category
 import com.nehaev.keepinmind.models.Theme
@@ -12,17 +14,17 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class CategoryChoiceViewModel(
-    private val mindRepository: MindRepository,
-    private val viewModelScope: CoroutineScope
-) {
+    private val mindRepository: MindRepository
+) : ViewModel() {
 
     val liveData: MutableLiveData<Resource<List<Category>>> = MutableLiveData()
 
-    fun attach() {
+    init {
         getCategories()
     }
 
-    fun detach() {
+    fun updateCategoryList() {
+        getCategories()
     }
 
     private fun getCategories() = viewModelScope.launch {
@@ -40,19 +42,15 @@ class CategoryChoiceViewModel(
         // add item "new category" in category list
         categories.add(
             Category(
-                id = 0,
+                id = "0",
                 name = "New category")
         )
+        categories += response
         return Resource.Success(data = categories)
     }
 
-    fun onButtonSaveClick(name: String, category: String) {
-        if (name.isNotBlank() && category.isNotBlank()) {
-            viewModelScope.launch {
-
-            }
-        }
-
+    fun onDialogSaveClick() {
+        updateCategoryList()
     }
 }
 

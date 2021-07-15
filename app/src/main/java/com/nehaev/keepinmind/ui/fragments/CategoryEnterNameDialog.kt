@@ -7,17 +7,23 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
-import com.nehaev.keepinmind.adapters.CategoriesAdapter
-import com.nehaev.keepinmind.ui.viewmodels.CategoryChoiceViewModel
+import com.nehaev.keepinmind.db.MindDatabase
+import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.viewmodels.CategoryEnterNameViewModel
+import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
 import kotlinx.android.synthetic.main.fragmentdialog_enter_name.*
-import java.util.*
 
 class CategoryEnterNameDialog : DialogFragment() {
+
+    interface DialogClickListener {
+        fun onDialogClickOkButton()
+    }
+
+    var dialogClickListener: DialogClickListener? = null
 
     private val TAG = "CategoryEnterNameDialog"
 
@@ -27,6 +33,8 @@ class CategoryEnterNameDialog : DialogFragment() {
         super.onCreate(savedInstanceState)
         // set dialog style
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogTheme)
+        // create view model
+        createViewModel()
     }
 
     override fun onCreateView(
@@ -51,12 +59,17 @@ class CategoryEnterNameDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = (activity as MindActivity).viewModel.categoryEnterNameViewModel
-
         setupDialogText()
         setObserver()
         setupEditText()
         setupButtonOk()
+    }
+
+    private fun createViewModel() {
+        //viewModel = (activity as MindActivity).viewModel.categoryEnterNameViewModel
+        val mindRepository = MindRepository(MindDatabase(activity as MindActivity))
+        val viewModelProviderFactory = MindViewModelProviderFactory(mindRepository)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(CategoryEnterNameViewModel::class.java)
     }
 
     private fun setupButtonOk() {
@@ -87,6 +100,7 @@ class CategoryEnterNameDialog : DialogFragment() {
                     setOkButtonDisable()
                 }
                 is CategoryEnterNameViewModel.EnterNameDialogState.DismissDialog -> {
+                    dialogClickListener?.onDialogClickOkButton()
                     dismiss()
                 }
             }

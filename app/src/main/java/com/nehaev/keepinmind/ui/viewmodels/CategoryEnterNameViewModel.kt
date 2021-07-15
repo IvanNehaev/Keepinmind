@@ -1,16 +1,19 @@
 package com.nehaev.keepinmind.ui.viewmodels
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.nehaev.keepinmind.models.Category
 import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.util.Resource
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.*
 
 class CategoryEnterNameViewModel(
-    private val mindRepository: MindRepository,
-    private val viewModelScope: CoroutineScope
-) {
+    val mindRepository: MindRepository
+) : ViewModel() {
 
     sealed class EnterNameDialogState {
         object ValidName : EnterNameDialogState()
@@ -33,13 +36,13 @@ class CategoryEnterNameViewModel(
     }
 
     fun onButtonOkClick(text: String) {
-        liveData.postValue(EnterNameDialogState.DismissDialog)
         saveCategory(text)
     }
 
     private fun saveCategory(name: String) {
         viewModelScope.launch {
-            mindRepository.categories.upsertCategory(Category(2, name))
+            async { mindRepository.categories.upsertCategory(Category(UUID.randomUUID().toString(), name)) }.await()
+            liveData.postValue(EnterNameDialogState.DismissDialog)
         }
     }
 }

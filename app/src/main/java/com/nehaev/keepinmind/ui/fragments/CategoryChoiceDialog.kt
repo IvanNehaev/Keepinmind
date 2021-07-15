@@ -2,20 +2,25 @@ package com.nehaev.keepinmind.ui.fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.adapters.CategoriesAdapter
+import com.nehaev.keepinmind.db.MindDatabase
 import com.nehaev.keepinmind.models.Category
+import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.viewmodels.CategoryChoiceViewModel
+import com.nehaev.keepinmind.ui.viewmodels.CategoryEnterNameViewModel
+import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
 import com.nehaev.keepinmind.util.Resource
 import kotlinx.android.synthetic.main.fragmentdialog_choice_categoty.*
-import java.util.*
 
-class CategoryChoiceDialog : DialogFragment() {
+class CategoryChoiceDialog : DialogFragment(), CategoryEnterNameDialog.DialogClickListener {
 
     private val TAG = "CategoryChoiceDialog"
 
@@ -26,6 +31,7 @@ class CategoryChoiceDialog : DialogFragment() {
         super.onCreate(savedInstanceState)
         // set dialog style
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogTheme)
+        createViewModel()
     }
 
     override fun onCreateView(
@@ -39,14 +45,24 @@ class CategoryChoiceDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = (activity as MindActivity).viewModel.categoryChoiceViewModel
-        viewModel.attach()
+        Log.d(TAG, "onViewCreated")
 
         setupRecyclerView()
         setObserver()
         setOnButtonCancelClick()
     }
+
+    private fun createViewModel() {
+        //viewModel = (activity as MindActivity).viewModel.categoryEnterNameViewModel
+        val mindRepository = MindRepository(MindDatabase(activity as MindActivity))
+        val viewModelProviderFactory = MindViewModelProviderFactory(mindRepository)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(CategoryChoiceViewModel::class.java)
+    }
+
+    override fun onDialogClickOkButton() {
+        viewModel.onDialogSaveClick()
+    }
+
 
     private fun setOnButtonCancelClick() {
         btnCancel.setOnClickListener {
@@ -74,7 +90,6 @@ class CategoryChoiceDialog : DialogFragment() {
 
     override fun onStop() {
         super.onStop()
-        viewModel.detach()
     }
 
     private fun setupRecyclerView() {
@@ -87,16 +102,22 @@ class CategoryChoiceDialog : DialogFragment() {
     }
 
     private fun onCategoryClick(category: Category) {
-        if (category.id == 0) {
+        if (category.id == "0") {
             onNewCategoryClick()
-            //dismiss()
         } else {
             dismiss()
+            showThemeNameDialog()
         }
+    }
+
+    private fun showThemeNameDialog() {
+        val dialog = ThemeNameDialog()
+        dialog.show((activity as MindActivity).supportFragmentManager, "")
     }
 
     private fun onNewCategoryClick() {
         val dialog = CategoryEnterNameDialog()
+        dialog.dialogClickListener = this
         dialog.show((activity as MindActivity).supportFragmentManager, "")
     }
 
@@ -120,7 +141,7 @@ class CategoryChoiceDialog : DialogFragment() {
         viewSuccessState()
         response?.let { categories ->
             categories.toMutableList()[0] = Category(
-                id = 0,
+                id = "0",
                 name = resources.getString(R.string.new_category_text)
             )
             categoriesAdapter.differ.submitList(categories)

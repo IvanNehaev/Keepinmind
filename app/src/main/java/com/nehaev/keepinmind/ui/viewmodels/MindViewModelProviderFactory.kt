@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.nehaev.keepinmind.repository.MindRepository
 
 class MindViewModelProviderFactory(
-        val mindRepository: MindRepository
+    val mindRepository: MindRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MindViewModel(mindRepository) as T
+        return modelClass.getConstructor(MindRepository::class.java)
+                .newInstance(mindRepository)
     }
 }

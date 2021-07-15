@@ -96,10 +96,6 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
             dialog.show((activity as MindActivity).supportFragmentManager, "")
         }
 
-        //nav to theme create fragment
-//        fabAddTheme.setOnClickListener {
-//            findNavController().navigate(R.id.action_themesFragment_to_themeCreateFragment)
-//        }
     }
 
     private fun createTestThemesInDb() {
