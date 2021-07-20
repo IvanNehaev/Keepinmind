@@ -9,12 +9,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.adapters.ThemesAdapter
+import com.nehaev.keepinmind.models.Category
 import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.ui.viewmodels.ThemeViewModel
+import com.nehaev.keepinmind.util.DialogClickListener
 import com.nehaev.keepinmind.util.ThemeResource
 import kotlinx.android.synthetic.main.fragment_themes.*
 
-class ThemesFragment : Fragment(R.layout.fragment_themes) {
+class ThemesFragment : Fragment(R.layout.fragment_themes), DialogClickListener {
 
     private val TAG = "ThemesFragment"
 
@@ -30,6 +32,22 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
         setupRecyclerView()
         setFabAction()
         setObserver()
+    }
+
+    override fun <T> onDialogClickOkButton(data: T?) {
+        showThemeNameDialog(data as Category)
+    }
+
+    override fun onDialogClick() {
+        viewModel.onDialogClick()
+    }
+
+    private fun showThemeNameDialog(category: Category) {
+        val dialog = ThemeNameDialog()
+        dialog.dialogClickListener = this
+        dialog.categoryId = category.id
+        dialog.categoryName = category.name
+        dialog.show((activity as MindActivity).supportFragmentManager, "")
     }
 
     override fun onStop() {
@@ -93,6 +111,7 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
         // show fragment dialog
         fabAddTheme.setOnClickListener {
             val dialog = CategoryChoiceDialog()
+            dialog.dialogClickListener = this
             dialog.show((activity as MindActivity).supportFragmentManager, "")
         }
 
@@ -104,8 +123,8 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
             for ( i in 0..3) {
                 nameCounter++
                 viewModel.upsertTheme(Theme(
-                    id = nameCounter,
-                    categoryId = nameCounter,
+                    id = nameCounter.toString(),
+                    categoryId = nameCounter.toString(),
                     categoryName = "Android",
                     name = "Theme $nameCounter",
                     questionCnt = 5 + nameCounter
@@ -114,8 +133,8 @@ class ThemesFragment : Fragment(R.layout.fragment_themes) {
             for ( i in 0..3) {
                 nameCounter++
                 viewModel.upsertTheme(Theme(
-                    id = nameCounter,
-                    categoryId = nameCounter,
+                    id = nameCounter.toString(),
+                    categoryId = nameCounter.toString(),
                     categoryName = "IOS",
                     name = "Theme $nameCounter",
                     questionCnt = 5 + nameCounter

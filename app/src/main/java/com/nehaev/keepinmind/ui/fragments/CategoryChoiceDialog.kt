@@ -17,15 +17,18 @@ import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.viewmodels.CategoryChoiceViewModel
 import com.nehaev.keepinmind.ui.viewmodels.CategoryEnterNameViewModel
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
+import com.nehaev.keepinmind.util.DialogClickListener
 import com.nehaev.keepinmind.util.Resource
 import kotlinx.android.synthetic.main.fragmentdialog_choice_categoty.*
 
-class CategoryChoiceDialog : DialogFragment(), CategoryEnterNameDialog.DialogClickListener {
+class CategoryChoiceDialog : DialogFragment(), DialogClickListener {
 
     private val TAG = "CategoryChoiceDialog"
 
     private lateinit var viewModel: CategoryChoiceViewModel
     private lateinit var categoriesAdapter: CategoriesAdapter
+
+    var dialogClickListener: DialogClickListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +62,13 @@ class CategoryChoiceDialog : DialogFragment(), CategoryEnterNameDialog.DialogCli
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(CategoryChoiceViewModel::class.java)
     }
 
-    override fun onDialogClickOkButton() {
-        viewModel.onDialogSaveClick()
+    override fun <T> onDialogClickOkButton(data: T?) {
+
     }
 
+    override fun onDialogClick() {
+        viewModel.onDialogSaveClick()
+    }
 
     private fun setOnButtonCancelClick() {
         btnCancel.setOnClickListener {
@@ -106,7 +112,7 @@ class CategoryChoiceDialog : DialogFragment(), CategoryEnterNameDialog.DialogCli
             onNewCategoryClick()
         } else {
             dismiss()
-            showThemeNameDialog()
+            dialogClickListener?.onDialogClickOkButton(category)
         }
     }
 

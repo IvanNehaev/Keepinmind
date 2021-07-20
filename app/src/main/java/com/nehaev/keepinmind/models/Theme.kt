@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
     tableName = "themes"
 )
 data class Theme(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val categoryId: Int,
+    @PrimaryKey(autoGenerate = false)
+    val id: String,
+    val categoryId: String,
     val categoryName: String,
     val name: String,
     val questionCnt: Int

@@ -15,13 +15,10 @@ import com.nehaev.keepinmind.db.MindDatabase
 import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.viewmodels.CategoryEnterNameViewModel
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
+import com.nehaev.keepinmind.util.DialogClickListener
 import kotlinx.android.synthetic.main.fragmentdialog_enter_name.*
 
 class CategoryEnterNameDialog : DialogFragment() {
-
-    interface DialogClickListener {
-        fun onDialogClickOkButton()
-    }
 
     var dialogClickListener: DialogClickListener? = null
 
@@ -100,7 +97,7 @@ class CategoryEnterNameDialog : DialogFragment() {
                     setOkButtonDisable()
                 }
                 is CategoryEnterNameViewModel.EnterNameDialogState.DismissDialog -> {
-                    dialogClickListener?.onDialogClickOkButton()
+                    dialogClickListener?.onDialogClick()
                     dismiss()
                 }
             }

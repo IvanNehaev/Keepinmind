@@ -1,21 +1,20 @@
 package com.nehaev.keepinmind.ui.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.repository.MindRepository
+import com.nehaev.keepinmind.ui.fragments.CategoryChoiceDialog
+import com.nehaev.keepinmind.util.DialogClickListener
 import com.nehaev.keepinmind.util.ThemeListResource
 import com.nehaev.keepinmind.util.ThemeResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class ThemeViewModel(
         private val mindRepository: MindRepository,
         private val viewModelScope: CoroutineScope
-) {
+){
 
     val liveData: MutableLiveData<ThemeResource> = MutableLiveData()
 
@@ -69,6 +68,10 @@ class ThemeViewModel(
         viewModelScope.launch {
             mindRepository.themes.upsertTheme(theme)
         }
+    }
+
+    fun onDialogClick() {
+        getThemes()
     }
 }
 
