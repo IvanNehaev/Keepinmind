@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nehaev.keepinmind.R
+import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.util.ThemeListResource
 import kotlinx.android.synthetic.main.category_list_item.view.*
 import kotlinx.android.synthetic.main.theme_list_item.view.*
@@ -86,6 +87,13 @@ class ThemesAdapter : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
                 holder.itemView.apply {
                     tvThemeName.text = itemList.theme?.name
                     tvQuestionCount.text = itemList.theme?.questionCnt.toString()
+                    setOnClickListener {
+                        onItemClickListener?.let { onItemClick ->
+                            itemList.theme?.let { theme ->
+                                onItemClick(theme)
+                            }
+                        }
+                    }
                 }
             }
             is ThemeListResource.CategoryItem -> {
@@ -94,6 +102,12 @@ class ThemesAdapter : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
                 }
             }
         }
+    }
+
+    private var onItemClickListener: ((Theme) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Theme) -> Unit) {
+        onItemClickListener = listener
     }
 
     override fun getItemCount() = differ.currentList.size
