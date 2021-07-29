@@ -15,11 +15,10 @@ import com.nehaev.keepinmind.db.MindDatabase
 import com.nehaev.keepinmind.models.Category
 import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.viewmodels.CategoryChoiceViewModel
-import com.nehaev.keepinmind.ui.viewmodels.CategoryEnterNameViewModel
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
 import com.nehaev.keepinmind.util.DialogClickListener
 import com.nehaev.keepinmind.util.Resource
-import kotlinx.android.synthetic.main.fragmentdialog_choice_categoty.*
+import kotlinx.android.synthetic.main.dialog_choice_categoty.*
 
 class CategoryChoiceDialog : DialogFragment(), DialogClickListener {
 
@@ -43,7 +42,7 @@ class CategoryChoiceDialog : DialogFragment(), DialogClickListener {
         savedInstanceState: Bundle?
     ): View? {
         setupDialog()
-        return inflater.inflate(R.layout.fragmentdialog_choice_categoty, null)
+        return inflater.inflate(R.layout.dialog_choice_categoty, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

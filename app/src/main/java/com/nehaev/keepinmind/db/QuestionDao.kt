@@ -13,6 +13,9 @@ interface QuestionDao {
     @Query("SELECT * FROM questions")
     fun getAllQuestions(): LiveData<List<Question>>
 
+    @Query( "SELECT * FROM questions WHERE themeId = :themeId")
+    suspend fun getAllQuestionsFromTheme(themeId: String): List<Question>
+
     @Delete
     suspend fun deleteQuestion(question: Question)
 }

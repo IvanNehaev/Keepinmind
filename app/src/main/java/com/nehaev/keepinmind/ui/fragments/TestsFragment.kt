@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nehaev.keepinmind.MindActivity
@@ -20,9 +21,8 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
     lateinit var viewModel: MindViewModel
     lateinit var testsAdapter: TestsAdapter
 
-    private val TAG = "TestFragment"
+    private val TAG = TestsFragment::class.simpleName
 
-    private var nameCounter = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,70 +73,19 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
 
     private fun setFabAction() {
         fabAddTest.setOnClickListener {
-            nameCounter++
-            Snackbar.make(rvTests, "Added Name #$nameCounter", Snackbar.LENGTH_SHORT).show()
-            viewModel.upsertTest(
-                test =
-                    Test(id =nameCounter,
-                        name = "$nameCounter",
-                        itemTableName = "name$nameCounter",
-                        questionCnt = 4 + nameCounter,
-                        rate = 55))
+            findNavController().navigate(R.id.action_testsFragment_to_createTestFragment)
         }
     }
 
-//    var testsNames: MutableList<String> = mutableListOf("Kotlin", "Java", "C++", "Swift")
-//    var displayList: MutableList<String> = mutableListOf()
-//    var nameCounter = 4
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        displayList.addAll(testsNames)
-//        fillRecyclerView()
-//        setFabAction()
-//        setExploreTestAction()
-//    }
-//
-//    private fun setExploreTestAction() {
-//
-//        etExploreTests.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(s: Editable) {}
-//
-//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-//
-//                if (etExploreTests.text.isEmpty()) {
-//                    displayList.clear()
-//                    displayList.addAll(testsNames)
-//                } else {
-//                    var newDisplayList = testsNames.filter {
-//                        it.contains(etExploreTests.text) || it.contains(etExploreTests.text.toString().capitalize())
-//                    }
-//
-//                    displayList.clear()
-//                    displayList.addAll(newDisplayList)
-//                }
-//                rvTests.adapter?.notifyDataSetChanged()
-//                rvTests.smoothScrollToPosition(0)
-//            }
-//        })
-//    }
-//
-//    private fun setFabAction() {
-//        fabAddTest.setOnClickListener {
-//            nameCounter++
-//            Snackbar.make(rvTests, "Name #$nameCounter,  size: ${rvTests.size}", Snackbar.LENGTH_SHORT).show()
-//            testsNames.add("#$nameCounter language")
-//            displayList.add("#$nameCounter language")
-//            rvTests.adapter?.notifyDataSetChanged()
-//            rvTests.smoothScrollToPosition(displayList.size)
-//        }
-//    }
-//
-//    private fun fillRecyclerView() {
-//
-//        rvTests.layoutManager = LinearLayoutManager(requireContext())
-//        rvTests.adapter = TestsRecyclerAdapter(displayList)
-//    }
+    private fun addFakeTest() {
+
+        Snackbar.make(rvTests, "Added Name #1", Snackbar.LENGTH_SHORT).show()
+        viewModel.upsertTest(
+            test =
+            Test(id =1,
+                name = "1",
+                itemTableName = "name 1",
+                questionCnt = 4 + 1,
+                rate = 55))
+    }
 }

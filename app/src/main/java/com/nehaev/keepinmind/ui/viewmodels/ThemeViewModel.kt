@@ -1,6 +1,8 @@
 package com.nehaev.keepinmind.ui.viewmodels
 
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.NavHostFragment
+import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.fragments.CategoryChoiceDialog
@@ -72,6 +74,10 @@ class ThemeViewModel(
 
     fun onDialogClick() {
         getThemes()
+    }
+
+    fun onListItemClickListener(theme: Theme) {
+
     }
 }
 

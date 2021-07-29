@@ -21,4 +21,13 @@
     <string name="new_category_text">New category</string>
     <string name="cancel_text">Cancel</string>
     <string name="ok_text">Ok</string>
+    <string name="empty_questions_list_text">You have not any question</string>
+    <string name="enter_the_answer_text">Enter the answer</string>
+    <string name="enter_your_question">Enter you question</string>
+    <string name="question_text">Question text</string>
+    <string name="answer_text">Answer text</string>
+    <string name="pick_themes_text">Pick themes</string>
+    <string name="enter_test_name_text">Enter test name</string>
+    <string name="test_name_text">Test name</string>
+    <string name="questions">questions:</string>
 </resources>

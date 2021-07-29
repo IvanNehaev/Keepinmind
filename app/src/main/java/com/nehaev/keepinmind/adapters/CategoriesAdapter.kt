@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Category
-import kotlinx.android.synthetic.main.category_create_list_item.view.*
+import kotlinx.android.synthetic.main.list_item_category_create.view.*
 
 class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
 
@@ -26,7 +26,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         return CategoriesViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.category_create_list_item,
+                R.layout.list_item_category_create,
                 parent,
                 false
             )

@@ -11,6 +11,8 @@ class MindRepository(
 
     val themes = ThemeRepository(db.getThemeDao())
     val categories = CategoryRepository(db.getCategoryDao())
+    val questions = QuestionsRepository(db.getQuestionDao())
+
 
     suspend fun getAllTests(): List<Test> =
         db.getTestDao().getAllTests()

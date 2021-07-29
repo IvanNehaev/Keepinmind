@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.util.ThemeListResource
-import kotlinx.android.synthetic.main.category_list_item.view.*
-import kotlinx.android.synthetic.main.theme_list_item.view.*
+import kotlinx.android.synthetic.main.list_item_category.view.*
+import kotlinx.android.synthetic.main.list_item_theme.view.*
 
 class ThemesAdapter : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
 
@@ -63,12 +63,12 @@ class ThemesAdapter : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
 
         val resource = when(viewType) {
             THEME_ITEM_TYPE -> {
-                R.layout.theme_list_item
+                R.layout.list_item_theme
             }
             CATEGORY_ITEM_TYPE -> {
-                R.layout.category_list_item
+                R.layout.list_item_category
             }
-            else -> R.layout.theme_list_item
+            else -> R.layout.list_item_theme
         }
 
         return ThemesViewHolder(

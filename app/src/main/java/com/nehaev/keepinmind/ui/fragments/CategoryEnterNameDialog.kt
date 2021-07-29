@@ -16,7 +16,7 @@ import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.viewmodels.CategoryEnterNameViewModel
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
 import com.nehaev.keepinmind.util.DialogClickListener
-import kotlinx.android.synthetic.main.fragmentdialog_enter_name.*
+import kotlinx.android.synthetic.main.dialog_enter_name.*
 
 class CategoryEnterNameDialog : DialogFragment() {
 
@@ -40,7 +40,7 @@ class CategoryEnterNameDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setupDialog()
-        return inflater.inflate(R.layout.fragmentdialog_enter_name, null)
+        return inflater.inflate(R.layout.dialog_enter_name, null)
     }
 
     private fun setupDialog() {

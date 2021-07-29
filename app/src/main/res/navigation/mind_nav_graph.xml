@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/mind_nav_graph"
-    app:startDestination="@id/themesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mind_nav_graph"
+    app:startDestination="@id/testsFragment">
 
     <fragment
         android:id="@+id/testsFragment"
         android:name="com.nehaev.keepinmind.ui.fragments.TestsFragment"
-        android:label="TestsFragment" />
+        android:label="TestsFragment"
+        tools:layout="@layout/fragment_tests">
+        <action
+            android:id="@+id/action_testsFragment_to_createTestFragment"
+            app:destination="@id/createTestFragment" />
+    </fragment>
     <fragment
         android:id="@+id/themesFragment"
         android:name="com.nehaev.keepinmind.ui.fragments.ThemesFragment"
-        android:label="ThemesFragment" >
+        android:label="ThemesFragment"
+        tools:layout="@layout/fragment_themes">
         <action
             android:id="@+id/action_themesFragment_to_questionsFragment"
-            app:destination="@id/questionsFragment" />
+            app:destination="@id/questionsFragment"
+            app:enterAnim="@anim/fragment_close_enter" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.nehaev.keepinmind.ui.fragments.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
     <fragment
         android:id="@+id/questionCreateFragment"
         android:name="com.nehaev.keepinmind.ui.fragments.QuestionCreateFragment"
-        android:label="QuestionCreateFragment" />
+        android:label="QuestionCreateFragment"
+        tools:layout="@layout/fragment_create_question" />
     <fragment
         android:id="@+id/questionsFragment"
         android:name="com.nehaev.keepinmind.ui.fragments.QuestionsFragment"
-        android:label="QuestionsFragment" >
+        android:label="QuestionsFragment"
+        tools:layout="@layout/fragment_questions">
         <action
             android:id="@+id/action_questionsFragment_to_questionCreateFragment"
-            app:destination="@id/questionCreateFragment" />
+            app:destination="@id/questionCreateFragment"
+            app:enterAnim="@anim/fragment_close_enter" />
     </fragment>
+    <fragment
+        android:id="@+id/createTestFragment"
+        android:name="com.nehaev.keepinmind.ui.fragments.TestCreateFragment"
+        android:label="CreateTestFragment"
+        tools:layout="@layout/fragment_create_test"/>
 </navigation>

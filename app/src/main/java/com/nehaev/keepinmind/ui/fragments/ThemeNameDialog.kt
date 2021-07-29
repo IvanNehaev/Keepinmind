@@ -14,12 +14,11 @@ import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.db.MindDatabase
 import com.nehaev.keepinmind.repository.MindRepository
-import com.nehaev.keepinmind.ui.viewmodels.CategoryEnterNameViewModel
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
 import com.nehaev.keepinmind.ui.viewmodels.ThemeNameViewModel
 import com.nehaev.keepinmind.util.DialogClickListener
 import com.nehaev.keepinmind.util.EditTextDialogStates
-import kotlinx.android.synthetic.main.fragmentdialog_enter_name.*
+import kotlinx.android.synthetic.main.dialog_enter_name.*
 
 class ThemeNameDialog : DialogFragment() {
 
@@ -46,7 +45,7 @@ class ThemeNameDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setupDialog()
-        return inflater.inflate(R.layout.fragmentdialog_enter_name, null)
+        return inflater.inflate(R.layout.dialog_enter_name, null)
     }
 
     private fun setupDialog() {

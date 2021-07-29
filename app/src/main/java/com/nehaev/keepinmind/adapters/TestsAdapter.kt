@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Test
-import kotlinx.android.synthetic.main.recyclerview_test_item.view.*
+import kotlinx.android.synthetic.main.list_item_test.view.*
 
 class TestsAdapter : RecyclerView.Adapter<TestsAdapter.TestsViewHolder>() {
 
@@ -29,7 +29,7 @@ class TestsAdapter : RecyclerView.Adapter<TestsAdapter.TestsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestsViewHolder {
         return TestsViewHolder(
                 LayoutInflater.from(parent.context).inflate(
-                        R.layout.recyclerview_test_item,
+                        R.layout.list_item_test,
                         parent,
                         false
                 )

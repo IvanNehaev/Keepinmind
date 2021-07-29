@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nehaev.keepinmind.MindActivity
@@ -57,6 +58,11 @@ class ThemesFragment : Fragment(R.layout.fragment_themes), DialogClickListener {
 
     private fun setupRecyclerView() {
         themesAdapter = ThemesAdapter()
+
+        themesAdapter.setOnItemClickListener { theme ->
+            onListItemClick(theme)
+        }
+
         rvThemes.apply {
             adapter = themesAdapter
             layoutManager = LinearLayoutManager(activity)
@@ -117,33 +123,12 @@ class ThemesFragment : Fragment(R.layout.fragment_themes), DialogClickListener {
 
     }
 
-    private fun createTestThemesInDb() {
-        var nameCounter = 0
-        fabAddTheme.setOnClickListener {
-            for ( i in 0..3) {
-                nameCounter++
-                viewModel.upsertTheme(Theme(
-                    id = nameCounter.toString(),
-                    categoryId = nameCounter.toString(),
-                    categoryName = "Android",
-                    name = "Theme $nameCounter",
-                    questionCnt = 5 + nameCounter
-                ))
-            }
-            for ( i in 0..3) {
-                nameCounter++
-                viewModel.upsertTheme(Theme(
-                    id = nameCounter.toString(),
-                    categoryId = nameCounter.toString(),
-                    categoryName = "IOS",
-                    name = "Theme $nameCounter",
-                    questionCnt = 5 + nameCounter
-                ))
-            }
-
-            Snackbar.make(rvThemes, "Added!", Snackbar.LENGTH_SHORT).show()
-        }
+    private fun onListItemClick(theme: Theme) {
+        val bundle = Bundle()
+        bundle.putSerializable("Theme", theme)
+        findNavController().navigate(R.id.action_themesFragment_to_questionsFragment, bundle)
     }
+
 }
 
 
