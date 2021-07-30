@@ -32,7 +32,7 @@ class QuestionCreateFragment : Fragment(R.layout.fragment_create_question) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme = arguments?.getSerializable("Theme") as Theme
-        question = arguments?.getSerializable("Question") as Question
+        question = arguments?.getSerializable("Question") as Question?
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

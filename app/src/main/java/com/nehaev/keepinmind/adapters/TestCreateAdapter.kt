@@ -3,6 +3,7 @@ package com.nehaev.keepinmind.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.list_item_theme_minimize.view.*
 
 class TestCreateAdapter : RecyclerView.Adapter<TestCreateAdapter.ThemesViewHolder>() {
 
-    private var mOnItemClickListener: ((Theme) -> Unit)? = null
+    private var mOnItemClickListener: ((Theme, View) -> Unit)? = null
 
     private val mDifferCallback = object : DiffUtil.ItemCallback<Theme>() {
         override fun areItemsTheSame(oldItem: Theme, newItem: Theme) =
@@ -39,11 +40,14 @@ class TestCreateAdapter : RecyclerView.Adapter<TestCreateAdapter.ThemesViewHolde
     override fun onBindViewHolder(holder: ThemesViewHolder, position: Int) {
         val theme = differ.currentList[position]
         holder.itemView.apply {
-            tvThemeName.text = theme.name
-            tvQuestionCountMin.text = theme.questionCnt.toString()
+            list_item_theme_min_cb_theme.text = theme.name
+            list_item_theme_min_tv_counter.text = theme.questionCnt.toString()
             setOnClickListener {
-                mOnItemClickListener?.let { onItemClick ->
-                    onItemClick(theme)
+                list_item_theme_min_cb_theme.apply {
+                    isChecked = !isChecked
+                }
+                    mOnItemClickListener?.let { onItemClick ->
+                    onItemClick(theme, it)
                 }
             }
         }
@@ -51,7 +55,7 @@ class TestCreateAdapter : RecyclerView.Adapter<TestCreateAdapter.ThemesViewHolde
 
     override fun getItemCount() = differ.currentList.size
 
-    fun setOnItemClickListener(listener: (Theme) -> Unit) {
+    fun setOnItemClickListener(listener: (Theme, View) -> Unit) {
         mOnItemClickListener = listener
     }
 
