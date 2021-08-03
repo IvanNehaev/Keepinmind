@@ -10,16 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nehaev.keepinmind.MindActivity
 import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.adapters.TestCreateAdapter
+import com.nehaev.keepinmind.adapters.ThemesAdapter
 import com.nehaev.keepinmind.db.MindDatabase
 import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
 import com.nehaev.keepinmind.ui.viewmodels.TestCreateViewModel
+import com.nehaev.keepinmind.util.ThemeListResource
 import kotlinx.android.synthetic.main.fragment_create_test.*
+import kotlinx.android.synthetic.main.list_item_category.view.*
+import kotlinx.android.synthetic.main.list_item_theme_minimize.view.*
 
 class TestCreateFragment : Fragment(R.layout.fragment_create_test) {
 
     private lateinit var mViewModel: TestCreateViewModel
-    private lateinit var mAdapter: TestCreateAdapter
+    private lateinit var mAdapter: ThemesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +43,7 @@ class TestCreateFragment : Fragment(R.layout.fragment_create_test) {
 
                 }
                 is TestCreateViewModel.TestCreateStates.Success -> {
-                    mAdapter.differ.submitList(state.themes)
+                    mAdapter.differ.submitList(state.listItems)
                 }
                 is TestCreateViewModel.TestCreateStates.EmptyList -> {
 
@@ -56,11 +60,36 @@ class TestCreateFragment : Fragment(R.layout.fragment_create_test) {
     }
 
     private fun setupRecyclerView() {
-        mAdapter = TestCreateAdapter()
+        mAdapter =
+            ThemesAdapter(
+               list_item_theme_layout = R.layout.list_item_theme_minimize,
+               onBindViewHolderAction = ::listThemesBindViewAction
+            )
 
         rv_pickThemes.apply {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    private fun listThemesBindViewAction(itemList: ThemeListResource, holder: ThemesAdapter.ThemesViewHolder, position: Int) {
+        when(itemList) {
+            is ThemeListResource.ThemeItem -> {
+                holder.itemView.apply {
+                    list_item_theme_min_cb_theme.text = itemList.theme?.name
+                    list_item_theme_min_tv_counter.text = itemList.theme?.questionCnt.toString()
+                    setOnClickListener {
+                        list_item_theme_min_cb_theme.apply {
+                            isChecked = !isChecked
+                        }
+                    }
+                }
+            }
+            is ThemeListResource.CategoryItem -> {
+                holder.itemView.apply {
+                    rvCategoryName.text = itemList.categoryName
+                }
+            }
         }
     }
 }

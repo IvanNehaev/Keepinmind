@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.repository.MindRepository
+import com.nehaev.keepinmind.util.ThemeListResource
+import com.nehaev.keepinmind.util.ThemesItemListHelper
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -29,15 +31,15 @@ class TestCreateViewModel(
         if (response.isEmpty())
             liveData.postValue(TestCreateStates.EmptyList())
         else
-            liveData.postValue(TestCreateStates.Success(response))
+            liveData.postValue(TestCreateStates.Success(ThemesItemListHelper.themesListToThemesResourcesList(response)))
 
     }
 
     sealed class TestCreateStates(
-        val themes: List<Theme>? = null
+        val listItems: List<ThemeListResource>? = null
     ) {
         class Loading : TestCreateStates()
-        class Success(themes: List<Theme>) : TestCreateStates(themes = themes)
+        class Success(items: List<ThemeListResource>) : TestCreateStates(listItems = items)
         class EmptyList() : TestCreateStates()
     }
 }

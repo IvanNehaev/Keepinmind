@@ -13,8 +13,13 @@ import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Test
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModel
 import com.nehaev.keepinmind.adapters.TestsAdapter
+import com.nehaev.keepinmind.adapters.ThemesAdapter
 import com.nehaev.keepinmind.util.Resource
+import com.nehaev.keepinmind.util.ThemeListResource
 import kotlinx.android.synthetic.main.fragment_tests.*
+import kotlinx.android.synthetic.main.list_item_category.view.*
+import kotlinx.android.synthetic.main.list_item_theme.view.*
+import kotlinx.android.synthetic.main.list_item_theme_minimize.view.*
 
 class TestsFragment : Fragment(R.layout.fragment_tests) {
 
@@ -65,6 +70,7 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
 
     private fun setupRecyclerView() {
         testsAdapter = TestsAdapter()
+
         rvTests.apply {
             adapter = testsAdapter
             layoutManager = LinearLayoutManager(activity)

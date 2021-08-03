@@ -12,7 +12,11 @@ import com.nehaev.keepinmind.util.ThemeListResource
 import kotlinx.android.synthetic.main.list_item_category.view.*
 import kotlinx.android.synthetic.main.list_item_theme.view.*
 
-class ThemesAdapter : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
+class ThemesAdapter(
+    val list_item_theme_layout: Int? = null,
+    val list_item_category_layout: Int? = null,
+    val onBindViewHolderAction: ((ThemeListResource, ThemesViewHolder, Int) -> Unit?)? = null
+    ) : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
 
     companion object {
         const val THEME_ITEM_TYPE = 1
@@ -63,10 +67,10 @@ class ThemesAdapter : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
 
         val resource = when(viewType) {
             THEME_ITEM_TYPE -> {
-                R.layout.list_item_theme
+                list_item_theme_layout ?: R.layout.list_item_theme
             }
             CATEGORY_ITEM_TYPE -> {
-                R.layout.list_item_category
+                list_item_category_layout ?: R.layout.list_item_category
             }
             else -> R.layout.list_item_theme
         }
@@ -82,26 +86,36 @@ class ThemesAdapter : RecyclerView.Adapter<ThemesAdapter.ThemesViewHolder>() {
 
     override fun onBindViewHolder(holder: ThemesViewHolder, position: Int) {
         val itemList = differ.currentList[position]
-        when(itemList) {
-            is ThemeListResource.ThemeItem -> {
-                holder.itemView.apply {
-                    tvThemeName.text = itemList.theme?.name
-                    tvQuestionCount.text = itemList.theme?.questionCnt.toString()
-                    setOnClickListener {
-                        onItemClickListener?.let { onItemClick ->
-                            itemList.theme?.let { theme ->
-                                onItemClick(theme)
+
+        // условие для совместимости с экраном тем
+        if (onBindViewHolderAction != null) {
+            onBindViewHolderAction?.apply {
+                this(itemList, holder, position)
+            }
+        } else {
+            when(itemList) {
+                is ThemeListResource.ThemeItem -> {
+                    holder.itemView.apply {
+                        tvThemeName.text = itemList.theme?.name
+                        tvQuestionCount.text = itemList.theme?.questionCnt.toString()
+                        setOnClickListener {
+                            onItemClickListener?.let { onItemClick ->
+                                itemList.theme?.let { theme ->
+                                    onItemClick(theme)
+                                }
                             }
                         }
                     }
                 }
-            }
-            is ThemeListResource.CategoryItem -> {
-                holder.itemView.apply {
-                    rvCategoryName.text = itemList.categoryName
+                is ThemeListResource.CategoryItem -> {
+                    holder.itemView.apply {
+                        rvCategoryName.text = itemList.categoryName
+                    }
                 }
             }
         }
+
+
     }
 
     private var onItemClickListener: ((Theme) -> Unit)? = null
