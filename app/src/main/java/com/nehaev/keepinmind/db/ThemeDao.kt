@@ -16,6 +16,9 @@ interface ThemeDao {
     @Query("SELECT * FROM themes")
     fun getAllThemesLiveData(): LiveData<List<Theme>>
 
+    @Query("SELECT * FROM themes WHERE id = :id")
+    suspend fun getThemeById(id: String): Theme
+
     @Delete
     suspend fun deleteTheme(theme: Theme)
 }

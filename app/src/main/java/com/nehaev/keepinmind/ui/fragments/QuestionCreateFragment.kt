@@ -118,7 +118,9 @@ class QuestionCreateFragment : Fragment(R.layout.fragment_create_question) {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionCreateViewModel::class.java)
 
-        viewModel.theme = theme
+        theme?.let {
+            viewModel.themeId = it.id
+        }
         viewModel.question = question
     }
 

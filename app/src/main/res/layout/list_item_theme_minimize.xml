@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
+    android:layout_marginStart="16dp"
     android:orientation="horizontal">
 
     <CheckBox
@@ -12,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="CheckBox"
+        android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,17 +25,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/list_item_theme_min_tv_questions"
-        app:layout_constraintGuide_percent="0.6"
+        app:layout_constraintGuide_percent="0.55"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/list_item_theme_min_cb_theme" />
 
     <TextView
         android:id="@+id/list_item_theme_min_tv_counter"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="20"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:minEms="2"
         android:visibility="visible"
         android:gravity="end"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

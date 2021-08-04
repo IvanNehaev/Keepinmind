@@ -1,7 +1,9 @@
 package com.nehaev.keepinmind.ui.fragments
 
 import android.app.Activity
+import android.nfc.Tag
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,6 +23,8 @@ import kotlinx.android.synthetic.main.list_item_category.view.*
 import kotlinx.android.synthetic.main.list_item_theme_minimize.view.*
 
 class TestCreateFragment : Fragment(R.layout.fragment_create_test) {
+
+    private val TAG = TestCreateFragment::class.simpleName
 
     private lateinit var mViewModel: TestCreateViewModel
     private lateinit var mAdapter: ThemesAdapter
@@ -78,6 +82,8 @@ class TestCreateFragment : Fragment(R.layout.fragment_create_test) {
                 holder.itemView.apply {
                     list_item_theme_min_cb_theme.text = itemList.theme?.name
                     list_item_theme_min_tv_counter.text = itemList.theme?.questionCnt.toString()
+                    Log.d(TAG, "${itemList.theme?.name} (${itemList.theme?.questionCnt})")
+
                     setOnClickListener {
                         list_item_theme_min_cb_theme.apply {
                             isChecked = !isChecked

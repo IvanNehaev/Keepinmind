@@ -10,6 +10,8 @@ class ThemeRepository(
 
     suspend fun getAllThemes(): List<Theme> = themeDao.getAllThemes()
 
+    suspend fun getThemeById(id: String): Theme = themeDao.getThemeById(id)
+
     suspend fun upsertTheme(theme: Theme) {
         themeDao.upsert(theme)
     }
