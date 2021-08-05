@@ -3,8 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/back_with_border.xml" value="0.559375" />
+        <entry key="app/src/main/res/drawable/ic_themes.xml" value="0.559375" />
+        <entry key="app/src/main/res/drawable/mtrl_botton_nav_item_tint_keep_in_mind.xml" value="0.559375" />
+        <entry key="app/src/main/res/layout/activity_mind.xml" value="0.5344202898550725" />
+        <entry key="app/src/main/res/layout/dialog_enter_name.xml" value="0.5344202898550725" />
         <entry key="app/src/main/res/layout/fragment_create_test.xml" value="0.26268115942028986" />
+        <entry key="app/src/main/res/layout/fragment_themes.xml" value="0.36594202898550726" />
         <entry key="app/src/main/res/layout/list_item_theme_minimize.xml" value="0.67" />
+        <entry key="app/src/main/res/menu/actionbar.xml" value="0.5432291666666667" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.5432291666666667" />
       </map>
     </option>
   </component>
