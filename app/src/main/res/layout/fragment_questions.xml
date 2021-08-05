@@ -72,13 +72,16 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddQuestion"
+        style="@style/Widget.MaterialComponents.FloatingActionButton.keepInMind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/white"
+        android:backgroundTintMode="add"
         android:visibility="visible"
         app:backgroundTint="#9A9A9A"
-        app:rippleColor="@color/white"
+        app:rippleColor="@color/red"
         app:srcCompat="@android:drawable/ic_menu_add"
         tools:visibility="visible" />
 
