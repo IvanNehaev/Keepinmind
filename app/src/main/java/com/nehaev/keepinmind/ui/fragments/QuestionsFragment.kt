@@ -39,7 +39,8 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     }
 
     private fun createViewModel() {
-        val mindRepository = MindRepository(MindDatabase(activity as MindActivity))
+        val mindRepository =
+            MindRepository(MindDatabase(activity as MindActivity))
         val theme = arguments?.getSerializable("Theme") as Theme
 
         val viewModelFactory = QuestionsViewModelProviderFactory(mindRepository, theme)

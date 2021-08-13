@@ -1,6 +1,8 @@
 package com.nehaev.keepinmind.ui.fragments
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,6 +25,15 @@ class ThemesFragment : Fragment(R.layout.fragment_themes), DialogClickListener {
 
     private lateinit var viewModel: ThemeViewModel
     private lateinit var themesAdapter: ThemesAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_actionbar, menu)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

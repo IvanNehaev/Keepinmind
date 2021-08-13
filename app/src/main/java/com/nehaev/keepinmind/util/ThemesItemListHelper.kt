@@ -4,7 +4,7 @@ import com.nehaev.keepinmind.models.Theme
 
 class ThemesItemListHelper {
     companion object {
-        fun themesListToThemesResourcesList(themes: List<Theme>): List<ThemeListResource> {
+        fun listToResourcesList(themes: List<Theme>): List<ThemeListResource> {
             val listItems = mutableListOf<ThemeListResource>()
             val categories = mutableSetOf<String>()
             // collect all unic categories names

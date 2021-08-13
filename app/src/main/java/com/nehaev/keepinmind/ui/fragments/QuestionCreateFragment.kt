@@ -59,7 +59,7 @@ class QuestionCreateFragment : Fragment(R.layout.fragment_create_question) {
                 viewModel.onAnswerTextChanged(etAnswer.text.toString())
             }
         })
-
+        // if we edit existed question then set question text in edit text
         question?.let {
             etAnswer.setText(it.answer, TextView.BufferType.EDITABLE)
             viewModel.answerText = it.answer
@@ -113,7 +113,8 @@ class QuestionCreateFragment : Fragment(R.layout.fragment_create_question) {
     }
 
     private fun createViewModel() {
-        val mindRepository = MindRepository(MindDatabase(activity as MindActivity))
+        val mindRepository =
+            MindRepository(MindDatabase(activity as MindActivity))
         val viewModelFactory = MindViewModelProviderFactory(mindRepository = mindRepository)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionCreateViewModel::class.java)

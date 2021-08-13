@@ -60,7 +60,8 @@ class ThemeNameDialog : DialogFragment() {
 
     private fun createViewModel() {
 
-        val mindRepository = MindRepository(MindDatabase(activity as MindActivity))
+        //val mindRepository = MindRepository(MindDatabase(activity as MindActivity))
+        val mindRepository = (activity as MindActivity).mindRepository
         val viewModelProviderFactory = MindViewModelProviderFactory(mindRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(ThemeNameViewModel::class.java)
     }

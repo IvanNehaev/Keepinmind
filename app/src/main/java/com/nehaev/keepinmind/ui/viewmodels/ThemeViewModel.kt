@@ -1,13 +1,8 @@
 package com.nehaev.keepinmind.ui.viewmodels
 
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.NavHostFragment
-import com.nehaev.keepinmind.R
 import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.repository.MindRepository
-import com.nehaev.keepinmind.ui.fragments.CategoryChoiceDialog
-import com.nehaev.keepinmind.util.DialogClickListener
-import com.nehaev.keepinmind.util.ThemeListResource
 import com.nehaev.keepinmind.util.ThemeResource
 import com.nehaev.keepinmind.util.ThemesItemListHelper
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +35,7 @@ class ThemeViewModel(
 
     private fun handleThemesResponse(response: List<Theme>): ThemeResource {
         response?.let {
-            return ThemeResource.Success(ThemesItemListHelper.themesListToThemesResourcesList(response))
+            return ThemeResource.Success(ThemesItemListHelper.listToResourcesList(response))
         }
         return ThemeResource.Error("handle themes error")
     }

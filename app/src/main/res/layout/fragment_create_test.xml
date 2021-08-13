@@ -24,7 +24,7 @@
         android:layout_weight="2">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_pickThemes"
+            android:id="@+id/fragment_create_test_rvPickThemes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
@@ -46,7 +46,7 @@
         android:textSize="20sp"/>
 
     <EditText
-        android:id="@+id/et_testName"
+        android:id="@+id/fragment_create_test_etTestName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -57,7 +57,7 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/fragment_create_test_btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

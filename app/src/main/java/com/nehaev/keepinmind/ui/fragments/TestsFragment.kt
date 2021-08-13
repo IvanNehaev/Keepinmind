@@ -2,6 +2,8 @@ package com.nehaev.keepinmind.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,6 +16,7 @@ import com.nehaev.keepinmind.models.Test
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModel
 import com.nehaev.keepinmind.adapters.TestsAdapter
 import com.nehaev.keepinmind.adapters.ThemesAdapter
+import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.util.Resource
 import com.nehaev.keepinmind.util.ThemeListResource
 import kotlinx.android.synthetic.main.fragment_tests.*
@@ -28,13 +31,29 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
 
     private val TAG = TestsFragment::class.simpleName
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_actionbar, menu)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = (activity as MindActivity).viewModel
+        createViewModel()
         setupRecyclerView()
         setFabAction()
+        setObserver()
+    }
 
+    private fun createViewModel(){
+        viewModel = (activity as MindActivity).viewModel
+    }
+
+    private fun setObserver() {
         viewModel.testsLiveData.observe(viewLifecycleOwner, Observer {response ->
             when(response) {
                 is Resource.Success -> {
@@ -70,11 +89,20 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
 
     private fun setupRecyclerView() {
         testsAdapter = TestsAdapter()
+        testsAdapter.setOnItemClickListener { test ->
+            onTestClick(test)
+        }
 
         rvTests.apply {
             adapter = testsAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+    }
+
+    private fun onTestClick(test: Test) {
+        val bundle = Bundle()
+        bundle.putSerializable("Test", test)
+        findNavController().navigate(R.id.action_testsFragment_to_createTestFragment, bundle)
     }
 
     private fun setFabAction() {
@@ -88,7 +116,7 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
         Snackbar.make(rvTests, "Added Name #1", Snackbar.LENGTH_SHORT).show()
         viewModel.upsertTest(
             test =
-            Test(id =1,
+            Test(id ="1",
                 name = "1",
                 itemTableName = "name 1",
                 questionCnt = 4 + 1,

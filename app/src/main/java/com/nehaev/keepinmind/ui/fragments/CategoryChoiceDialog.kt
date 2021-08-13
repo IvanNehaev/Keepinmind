@@ -55,8 +55,8 @@ class CategoryChoiceDialog : DialogFragment(), DialogClickListener {
     }
 
     private fun createViewModel() {
-        //viewModel = (activity as MindActivity).viewModel.categoryEnterNameViewModel
-        val mindRepository = MindRepository(MindDatabase(activity as MindActivity))
+        //val mindRepository = MindRepository(MindDatabase(activity as MindActivity), activity as MindActivity)
+        val mindRepository = (activity as MindActivity).mindRepository
         val viewModelProviderFactory = MindViewModelProviderFactory(mindRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(CategoryChoiceViewModel::class.java)
     }
