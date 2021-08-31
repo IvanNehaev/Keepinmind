@@ -9,3 +9,9 @@
 ## Библиотеки
 Для работы с локальной БД использована библиотека Room
   
+## Скриншоты
+### Экран выбора темы
+<a href="https://drive.google.com/uc?export=view&id=12DoJcXHfu7aY6zrHyQmyBPTfwk8FOXI9"><img src="https://drive.google.com/uc?export=view&id=12DoJcXHfu7aY6zrHyQmyBPTfwk8FOXI9" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+### Экран создания теста
+<a href="https://drive.google.com/uc?export=view&id=14sRcqAY9NbCka7Hf5Q0Rz5JFv__7te6K"><img src="https://drive.google.com/uc?export=view&id=14sRcqAY9NbCka7Hf5Q0Rz5JFv__7te6K" style="width: 650px; max-width: 50%; height: auto" title="Click to enlarge picture" />
+  
