@@ -139,6 +139,11 @@ class TestCreateViewModel(
         validateTest()
     }
 
+    inner class TestListResource(
+        val listItems: List<ThemeListResource>? = null,
+        val isChecked: Boolean? = null
+    )
+
     sealed class TestCreateStates(
         val listItems: List<ThemeListResource>? = null
     ) {

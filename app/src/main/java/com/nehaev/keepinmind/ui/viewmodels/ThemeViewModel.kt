@@ -40,12 +40,6 @@ class ThemeViewModel(
         return ThemeResource.Error("handle themes error")
     }
 
-    fun upsertTheme(theme: Theme) {
-        viewModelScope.launch {
-            mindRepository.themes.upsertTheme(theme)
-        }
-    }
-
     fun onDialogClick() {
         getThemes()
     }

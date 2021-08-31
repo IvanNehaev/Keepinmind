@@ -19,8 +19,8 @@ class ThemesItemListHelper {
                     theme.categoryName == category
                 }
                 // add theme in itemList
-                for(theme in themesInCategory) {
-                    listItems.add(ThemeListResource.ThemeItem(theme))
+                themesInCategory.forEach {
+                    listItems.add(ThemeListResource.ThemeItem(it))
                 }
             }
             return listItems

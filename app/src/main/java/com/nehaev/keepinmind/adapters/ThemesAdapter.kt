@@ -114,8 +114,6 @@ class ThemesAdapter(
                 }
             }
         }
-
-
     }
 
     private var onItemClickListener: ((Theme) -> Unit)? = null
