@@ -22,9 +22,6 @@ class ThemesAdapter(
         const val THEME_ITEM_TYPE = 1
         const val CATEGORY_ITEM_TYPE = 2
     }
-
-    inner class ThemesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
-
     private val differCallback = object : DiffUtil.ItemCallback<ThemeListResource>() {
         override fun areItemsTheSame(
             oldItem: ThemeListResource,
@@ -47,6 +44,7 @@ class ThemesAdapter(
             return oldItem == newItem
         }
     }
+
 
     val differ = AsyncListDiffer(this, differCallback)
 
@@ -123,6 +121,8 @@ class ThemesAdapter(
     }
 
     override fun getItemCount() = differ.currentList.size
+
+    inner class ThemesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 }
 
 

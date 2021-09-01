@@ -15,17 +15,25 @@ import kotlinx.android.synthetic.main.list_item_theme_minimize.view.*
 
 class TestCreateAdapter : RecyclerView.Adapter<TestCreateAdapter.ThemesViewHolder>() {
 
+    companion object {
+        const val THEME_ITEM_TYPE = 1
+        const val CATEGORY_ITEM_TYPE = 2
+    }
+
     private var mOnItemClickListener: ((Theme, View) -> Unit)? = null
 
     private val mDifferCallback = object : DiffUtil.ItemCallback<Theme>() {
-        override fun areItemsTheSame(oldItem: Theme, newItem: Theme) =
-            oldItem.id == newItem.id
+        override fun areItemsTheSame(
+            oldItem: Theme,
+            newItem: Theme): Boolean {
+
+            return true
+        }
 
         override fun areContentsTheSame(oldItem: Theme, newItem: Theme) = oldItem == newItem
     }
 
     val differ = AsyncListDiffer(this, mDifferCallback)
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThemesViewHolder {
         return ThemesViewHolder(

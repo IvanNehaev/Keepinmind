@@ -147,7 +147,9 @@ class TestCreateFragment : Fragment(R.layout.fragment_create_test) {
 
                     // if we edit already existed test, set checkbox
                     if (mIsEditMode) {
-                        list_item_theme_min_cb_theme.isChecked = true
+                        itemList.isSelected?.let {
+                            list_item_theme_min_cb_theme.isChecked = it
+                        }
                     }
 
                     list_item_theme_min_cb_theme.setOnCheckedChangeListener { compoundButton, isChecked ->

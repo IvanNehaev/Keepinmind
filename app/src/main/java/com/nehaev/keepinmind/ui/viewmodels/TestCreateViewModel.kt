@@ -9,7 +9,6 @@ import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.util.ThemeListResource
 import com.nehaev.keepinmind.util.ThemesItemListHelper
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -38,24 +37,33 @@ class TestCreateViewModel(
         var themesIdList =
             async { mindRepository.selectedThemesRepository.getThemesId(test.itemTableName) }
         // get themes by id
-        val themesList = mutableListOf<Theme>()
+        val selectedThemesList = mutableListOf<Theme>()
         themesIdList.await().let { list ->
             for (id in list) {
                 val theme = async { mindRepository.themes.getThemeById(id) }
-                themesList.add(theme.await())
+                selectedThemesList.add(theme.await())
             }
         }
+        // get all themes from db
+        var allThemes = listOf<Theme>()
+        async {
+            allThemes = mindRepository.themes.getAllThemes().filter { theme ->
+                theme.questionCnt > 0
+            }
+        }.await()
         // save themes from db to local list
-        mThemesList = themesList
+        mThemesList = allThemes
         // save themes from db to local list of selected themes
-        mSelectedThemes = themesList.toMutableSet()
+        mSelectedThemes = selectedThemesList.toMutableSet()
         // save editable test name to local variable
         editableTest?.let {
             mTestName = it.name
         }
         // send themes list to view
         liveData.postValue(
-            TestCreateStates.Success(ThemesItemListHelper.listToResourcesList(mThemesList))
+            TestCreateStates.Success(
+                ThemesItemListHelper.listToResourceListWithSelectedItems(allThemes, selectedThemesList)
+            )
         )
     }
 
