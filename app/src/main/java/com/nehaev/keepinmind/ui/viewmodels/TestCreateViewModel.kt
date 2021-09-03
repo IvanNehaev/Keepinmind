@@ -62,7 +62,10 @@ class TestCreateViewModel(
         // send themes list to view
         liveData.postValue(
             TestCreateStates.Success(
-                ThemesItemListHelper.listToResourceListWithSelectedItems(allThemes, selectedThemesList)
+                ThemesItemListHelper.listToResourceListWithSelectedItems(
+                    allThemes,
+                    selectedThemesList
+                )
             )
         )
     }
@@ -112,6 +115,10 @@ class TestCreateViewModel(
         validateTest()
     }
 
+    private fun countQuestionInTest(themes: Set<Theme>) = themes.fold(0) { accumulator, theme ->
+        accumulator + theme.questionCnt
+    }
+
     fun onButtonSaveClick() {
         val id = UUID.randomUUID().toString()
         // create new test or edit existed
@@ -119,7 +126,7 @@ class TestCreateViewModel(
             id = editableTest?.id ?: id,
             itemTableName = editableTest?.itemTableName ?: "[$id]",
             name = mTestName,
-            questionCnt = mSelectedThemes.size,
+            questionCnt = countQuestionInTest(mSelectedThemes),
             rate = 0
         )
         viewModelScope.launch {
