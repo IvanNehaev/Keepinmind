@@ -46,5 +46,11 @@
         <item name="backgroundTint">@color/red</item>
         <item name="rippleColor">@color/white</item>
     </style>
+    <!-- Delete button style -->
+    <style name="Widget.AppCompat.Button.keepInMind.deleteButton" parent="Widget.AppCompat.Button">
+        <item name="tint">@color/red</item>
+        <item name="backgroundTint">@color/red</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 
 </resources>
