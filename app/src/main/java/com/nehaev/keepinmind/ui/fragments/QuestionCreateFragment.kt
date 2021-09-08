@@ -17,10 +17,8 @@ import com.nehaev.keepinmind.models.Theme
 import com.nehaev.keepinmind.repository.MindRepository
 import com.nehaev.keepinmind.ui.viewmodels.MindViewModelProviderFactory
 import com.nehaev.keepinmind.ui.viewmodels.QuestionCreateViewModel
-import kotlinx.android.synthetic.main.activity_mind.*
 import kotlinx.android.synthetic.main.fragment_create_question.*
-import kotlinx.android.synthetic.main.dialog_enter_name.*
-import kotlin.math.min
+
 
 class QuestionCreateFragment : Fragment(R.layout.fragment_create_question) {
 
@@ -43,6 +41,16 @@ class QuestionCreateFragment : Fragment(R.layout.fragment_create_question) {
         setupQuestionEditText()
         setupAnswerEditText()
         setupSaveButton()
+        setupDeleteButton()
+    }
+
+    private fun setupDeleteButton() {
+        question?.let {
+            fragment_create_question_btn_delete_question.text = context?.resources?.getString(R.string.delete_text)
+        }
+        fragment_create_question_btn_delete_question.setOnClickListener {
+            viewModel.onButtonDeleteClick()
+        }
     }
 
     private fun setupSaveButton() {
@@ -96,6 +104,18 @@ class QuestionCreateFragment : Fragment(R.layout.fragment_create_question) {
                 }
                 // Save question
                 is QuestionCreateViewModel.ViewStates.SaveQuestion -> {
+                    val bundle = Bundle()
+                    bundle.putSerializable("Theme", theme)
+                    findNavController().navigate(R.id.questionsFragment, bundle)
+                }
+                // Cancel question
+                is QuestionCreateViewModel.ViewStates.CancelQuestion -> {
+                    val bundle = Bundle()
+                    bundle.putSerializable("Theme", theme)
+                    findNavController().navigate(R.id.questionsFragment, bundle)
+                }
+                // Delete question
+                is QuestionCreateViewModel.ViewStates.DeleteQuestion -> {
                     val bundle = Bundle()
                     bundle.putSerializable("Theme", theme)
                     findNavController().navigate(R.id.questionsFragment, bundle)
