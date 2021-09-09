@@ -11,6 +11,7 @@ import com.nehaev.keepinmind.util.QuestionsFragmentStates
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.min
 
 class QuestionsViewModel(
     val mindRepository: MindRepository,
@@ -36,5 +37,26 @@ class QuestionsViewModel(
             liveData.postValue(QuestionsFragmentStates.EmptyList())
         else
             liveData.postValue(QuestionsFragmentStates.Success(response))
+    }
+
+    private fun deleteTheme() = viewModelScope.launch {
+        // set loading state on view
+        liveData.postValue(QuestionsFragmentStates.Loading())
+        async {
+            // delete all questions in theme
+            mindRepository.questions.deleteAllQuestionInTheme(theme)
+            // delete theme from selected
+            mindRepository.selectedThemesRepository.removeThemeFromSelected(theme)
+            // delete theme
+            mindRepository.themes.deleteTheme(theme)
+        }.await()
+        // update question count in tests
+        mindRepository.refreshDataInTestsWithTheme(theme)
+        // set close state on view
+        liveData.postValue(QuestionsFragmentStates.Close())
+    }
+
+    public fun onMenuItemDeleteClick() {
+        deleteTheme()
     }
 }

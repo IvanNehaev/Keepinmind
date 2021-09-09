@@ -33,12 +33,6 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_actionbar, menu)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

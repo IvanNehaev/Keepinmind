@@ -8,4 +8,5 @@ sealed class QuestionsFragmentStates(
     class Loading() : QuestionsFragmentStates()
     class EmptyList() : QuestionsFragmentStates()
     class Success(questions: List<Question>) : QuestionsFragmentStates(questionsList = questions)
+    class Close(): QuestionsFragmentStates()
 }

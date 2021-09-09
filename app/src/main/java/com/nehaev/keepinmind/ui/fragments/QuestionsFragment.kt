@@ -1,9 +1,7 @@
 package com.nehaev.keepinmind.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +26,21 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         createViewModel()
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_actionbar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_actionbar_delete -> {
+                viewModel.onMenuItemDeleteClick()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +57,6 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
         val theme = arguments?.getSerializable("Theme") as Theme
 
         val viewModelFactory = QuestionsViewModelProviderFactory(mindRepository, theme)
-
         viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionsViewModel::class.java)
     }
 
@@ -77,6 +89,9 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
                     showProgressBar()
                     hideList()
                     hideText()
+                }
+                is QuestionsFragmentStates.Close -> {
+                    findNavController().navigate(R.id.themesFragment)
                 }
             }
         })

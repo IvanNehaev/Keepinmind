@@ -28,7 +28,6 @@ class ThemesFragment : Fragment(R.layout.fragment_themes), DialogClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

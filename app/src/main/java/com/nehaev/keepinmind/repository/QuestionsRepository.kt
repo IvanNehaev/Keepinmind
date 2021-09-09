@@ -13,4 +13,15 @@ class QuestionsRepository(
     suspend fun upsertQuestion(question: Question) {
         questionsDao.upsert(question)
     }
+
+    suspend fun deleteQuestion(question: Question) {
+        questionsDao.deleteQuestion(question)
+    }
+
+    suspend fun deleteAllQuestionInTheme(theme: Theme) {
+        val questionsList = getAllQuestionsFromTheme(theme)
+        questionsList.forEach {
+            deleteQuestion(it)
+        }
+    }
 }

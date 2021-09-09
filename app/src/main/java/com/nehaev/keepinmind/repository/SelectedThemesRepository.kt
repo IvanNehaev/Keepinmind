@@ -7,6 +7,7 @@ import android.provider.BaseColumns
 import android.util.Log
 import androidx.room.Ignore
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nehaev.keepinmind.db.MindDatabase
 import com.nehaev.keepinmind.models.Theme
@@ -54,6 +55,25 @@ class SelectedThemesRepository(
         }
     }
 
+    suspend fun getRows(tableName: String): Map<String, String> {
+        val result = mutableMapOf<String, String>()
+        val cursor = db.openHelper.writableDatabase.query("select * from $tableName")
+
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            result.put(
+                cursor.getString(
+                    cursor.getColumnIndex(COL_ID)
+                ),
+                cursor.getString(
+                    cursor.getColumnIndex(COL_THEME_ID)
+                )
+            )
+            cursor.moveToNext()
+        }
+        return result
+    }
+
     suspend fun getThemesId(tableName: String): List<String> {
         val result = mutableListOf<String>()
         val cursor = db.openHelper.writableDatabase.query("select * from $tableName")
@@ -72,6 +92,34 @@ class SelectedThemesRepository(
 
     suspend fun clearTable(tableName: String) {
         db.openHelper.writableDatabase.execSQL("delete from $tableName")
+    }
+
+    suspend fun deleteTable(tableName: String) {
+        try {
+            Log.d(TAG, "Delete $tableName")
+            db.openHelper.writableDatabase.execSQL("drop table if exists $tableName")
+        } catch (e: SQLiteException) {
+            Log.d(TAG, e.toString())
+        }
+    }
+
+    suspend fun removeThemeFromSelected(theme: Theme) {
+        val sdb = db.openHelper.writableDatabase
+        val testsList = db.getTestDao().getAllTests()
+        testsList.forEach { test ->
+            Log.d(TAG, "Test name ${test.name}")
+            val selectedThemesMap = getRows(test.itemTableName)
+            selectedThemesMap.forEach {
+                Log.d(TAG, "Id: ${it.key}, ThemeId: ${it.value}")
+            }
+            if (selectedThemesMap.containsValue(theme.id)) {
+                selectedThemesMap.forEach {
+                    if (it.value == theme.id) {
+                        sdb.execSQL("delete from ${test.itemTableName} WHERE $COL_ID = ${it.key}")
+                    }
+                }
+            }
+        }
     }
 
     private suspend fun insertRow(

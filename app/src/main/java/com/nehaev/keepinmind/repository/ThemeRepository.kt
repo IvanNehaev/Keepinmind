@@ -15,4 +15,8 @@ class ThemeRepository(
     suspend fun upsertTheme(theme: Theme) {
         themeDao.upsert(theme)
     }
+
+    suspend fun deleteTheme(theme: Theme) {
+        themeDao.deleteTheme(theme)
+    }
 }

@@ -45,6 +45,16 @@ class TestCreateFragment : Fragment(R.layout.fragment_create_test) {
         setObserver()
         setupTestNameEditText()
         setupButtonSave()
+        setupButtonDelete()
+    }
+
+    private fun setupButtonDelete() {
+        if (mIsEditMode) {
+            fragment_create_test_btnDelete.text = context?.getString(R.string.delete_text)
+        }
+        fragment_create_test_btnDelete.setOnClickListener {
+            mViewModel.onButtonDeleteClick()
+        }
     }
 
     private fun setupButtonSave() {
@@ -96,6 +106,10 @@ class TestCreateFragment : Fragment(R.layout.fragment_create_test) {
                 // Invalid Test
                 is TestCreateViewModel.TestCreateStates.InvalidTest -> {
                     disableSaveButton()
+                }
+                // Close test
+                is TestCreateViewModel.TestCreateStates.Close -> {
+                    findNavController().navigate(R.id.testsFragment)
                 }
             }
         })

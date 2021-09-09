@@ -119,6 +119,21 @@ class TestCreateViewModel(
         accumulator + theme.questionCnt
     }
 
+    fun onButtonDeleteClick() = viewModelScope.launch {
+        async {
+            // Set loading state in view
+            liveData.postValue(TestCreateStates.Loading())
+            // Delete test from db if exist
+            editableTest?.let { test ->
+                mindRepository.tests.delete(test)
+                mindRepository.selectedThemesRepository.deleteTable(test.itemTableName)
+            }
+        }.await()
+        // Set close state in view
+        liveData.postValue(TestCreateStates.Close())
+    }
+
+
     fun onButtonSaveClick() {
         val id = UUID.randomUUID().toString()
         // create new test or edit existed
@@ -168,5 +183,6 @@ class TestCreateViewModel(
         class SaveTest : TestCreateStates()
         class ValidTest : TestCreateStates()
         class InvalidTest : TestCreateStates()
+        class Close : TestCreateStates()
     }
 }

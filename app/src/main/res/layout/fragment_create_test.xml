@@ -56,12 +56,37 @@
         android:hint="@string/theme_name_text"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/fragment_create_test_btnSave"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_gravity="center"
-        android:text="@string/save_text" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/fragment_create_test_btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/save_text" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/fragment_create_test_btnDelete"
+            style="@style/Widget.AppCompat.Button.keepInMind.deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:text="@string/cancel_text" />
+    </LinearLayout>
 
 </LinearLayout>

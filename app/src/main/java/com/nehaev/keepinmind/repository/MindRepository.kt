@@ -1,6 +1,7 @@
 package com.nehaev.keepinmind.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.nehaev.keepinmind.db.MindDatabase
 import com.nehaev.keepinmind.models.Test
@@ -55,25 +56,25 @@ class MindRepository(
 
         testsList.forEach { test ->
             val themesIdList = selectedThemesRepository.getThemesId(test.itemTableName)
-            if (themesIdList.contains(editedTheme.id)) {
-                val selectedThemesList = mutableListOf<Theme>()
-                themesIdList.forEach { themeId ->
-                    val theme = themes.getThemeById(themeId)
-                    selectedThemesList.add(theme)
-                }
-                val questionCount = selectedThemesList.fold(0) { accumulator, theme ->
-                    accumulator + theme.questionCnt
-                }
-                val newTest =
-                    Test(
-                        id = test.id,
-                        name = test.name,
-                        questionCnt = questionCount,
-                        rate = test.rate,
-                        itemTableName = test.itemTableName
-                    )
-                tests.upsert(newTest)
+
+            val selectedThemesList = mutableListOf<Theme>()
+            themesIdList.forEach { themeId ->
+                val theme = themes.getThemeById(themeId)
+                selectedThemesList.add(theme)
             }
+            val questionCount = selectedThemesList.fold(0) { accumulator, theme ->
+                accumulator + theme.questionCnt
+            }
+            val newTest =
+                Test(
+                    id = test.id,
+                    name = test.name,
+                    questionCnt = questionCount,
+                    rate = test.rate,
+                    itemTableName = test.itemTableName
+                )
+            tests.upsert(newTest)
+
         }
     }
 }
