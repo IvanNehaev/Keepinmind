@@ -31,4 +31,5 @@
     <string name="test_name_text">Test name</string>
     <string name="questions">questions:</string>
     <string name="delete_text">delete</string>
+    <string name="show_answer_text">Show answer</string>
 </resources>

@@ -10,6 +10,8 @@ class QuestionsRepository(
 
     suspend fun getAllQuestionsFromTheme(theme: Theme) = questionsDao.getAllQuestionsFromTheme(themeId = theme.id)
 
+    suspend fun getAllQuestionsFromTheme(id: String) = questionsDao.getAllQuestionsFromTheme(themeId = id)
+
     suspend fun upsertQuestion(question: Question) {
         questionsDao.upsert(question)
     }

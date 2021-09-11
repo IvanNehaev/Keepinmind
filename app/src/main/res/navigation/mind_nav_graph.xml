@@ -49,4 +49,9 @@
         android:name="com.nehaev.keepinmind.ui.fragments.TestCreateFragment"
         android:label="CreateTestFragment"
         tools:layout="@layout/fragment_create_test"/>
+    <fragment
+        android:id="@+id/askQuestionFragment"
+        android:name="com.nehaev.keepinmind.ui.fragments.AskQuestionFragment"
+        android:label="AskQuestionFragment"
+        tools:layout="@layout/fragment_ask_question"/>
 </navigation>

@@ -13,6 +13,8 @@ class TestsRepository(
 
     suspend fun getAllTests(): List<Test> = testsDao.getAllTests()
 
+    suspend fun getTestById(id: String) = testsDao.getTestById(id)
+
     suspend fun delete(test: Test) {
         testsDao.deleteTest(test)
     }

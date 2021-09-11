@@ -96,7 +96,8 @@ class TestsFragment : Fragment(R.layout.fragment_tests) {
     private fun onTestClick(test: Test) {
         val bundle = Bundle()
         bundle.putSerializable("Test", test)
-        findNavController().navigate(R.id.action_testsFragment_to_createTestFragment, bundle)
+        //findNavController().navigate(R.id.action_testsFragment_to_createTestFragment, bundle)
+        findNavController().navigate(R.id.askQuestionFragment, bundle)
     }
 
     private fun setFabAction() {
